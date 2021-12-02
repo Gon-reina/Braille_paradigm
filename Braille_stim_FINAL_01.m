@@ -33,9 +33,9 @@ TriggerStart = 1;
 TriggerSample = 2;
 TriggerLeft = 4;
 TriggerRight = 8;
-TriggerFalseL = 16;
-TriggerFalseR = 32;
-TriggerTrue = 64;
+TriggerFalseL = 3;
+TriggerFalseR = 5;
+TriggerTrue = 4;
 % Set up attend left/right condition in a pseudorandomised way: 50 left, 50 right
 Attendlr = [ones(1,Ntrials/2), ones(1,Ntrials/2)*2];
 Attendlr = Attendlr(randperm(Ntrials));
