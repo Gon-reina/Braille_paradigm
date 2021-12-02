@@ -25,17 +25,17 @@ all_down = BuildBrailleSequence(zeros(1,8),0);
 %%
 % Gives feedback every 10 trials.
 nfeedback = 10;
-Ntrials = 80;
+Ntrials = 20;
 PortAddress = 57336;
 
 %%%%% set up triggers
 TriggerStart = 1;
 TriggerSample = 2;
-TriggerLeft = 4;
-TriggerRight = 8;
+TriggerTrue = 4;
 TriggerFalseL = 3;
 TriggerFalseR = 5;
-TriggerTrue = 4;
+TriggerLeft = 6;
+TriggerRight = 7;
 % Set up attend left/right condition in a pseudorandomised way: 50 left, 50 right
 Attendlr = [ones(1,Ntrials/2), ones(1,Ntrials/2)*2];
 Attendlr = Attendlr(randperm(Ntrials));
@@ -56,12 +56,11 @@ io64(ioObjTrig,PortAddress,0);
 
 global cogent;
 config_io
-io64(cogent.io.ioObj,PortAddressStim,0);
+io64(cogent.io.ioObj,PortAddress,0);
 disp('Ports Cleared')
-ioObjStim =[];
-% ioObjStim = io64;
-% statusStim = io64(ioObjStim);
-% io64(ioObjStim,PortAddressStim,0);
+% ioObjTrig = io64;
+% statusStim = io64(ioObjTrig);
+% io64(ioObjTrig,PortAddress,0);
 
 %% Initialise PTB
 PsychDefaultSetup(2);
@@ -138,7 +137,7 @@ del = del + feedbackpause'*Restblock ;
 trialpattern = zeros(Ntrials,Nstims);
 handstim = zeros(Ntrials,Nstims);
 pause(3)
-sendStim(all_down,ioObjStim ,PortAddressStim);
+sendStim(all_down,ioObjTrig ,PortAddress);
 t = GetSecs();
 Screen('TextSize', window, 36);
 
@@ -166,7 +165,7 @@ for ii = 1:Ntrials
     % Send the sample pattern
     r = randi(Npat,1);
     seq = BuildBrailleSequence(pp(r,:),0);
-    sendStim(seq,ioObjStim ,PortAddressStim);
+    sendStim(seq,ioObjTrig ,PortAddress);
     io64(ioObjTrig,PortAddress,TriggerSample);
 
     Screen('DrawLines', window, allCoords,...
@@ -174,7 +173,7 @@ for ii = 1:Ntrials
     Screen('Flip', window, t+del(ii)+SampleOff);
 
     % Reset stimulators
-    sendStim(all_down,ioObjStim ,PortAddressStim);
+    sendStim(all_down,ioObjTrig ,PortAddress);
     io64(ioObjTrig,PortAddress,0)
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % Display text 'left' (1) or 'right' (2)
@@ -183,7 +182,7 @@ for ii = 1:Ntrials
         lineWidthPix, [1 1 1], [xCenter yCenter], 2);
     % Send trigger 'left' (4) or 'right' (8)
     
-    io64(ioObjTrig,PortAddress,Attendlr(ii)*4)
+    io64(ioObjTrig,PortAddress,Attendlr(ii)+5)
 
     Screen('Flip', window, t+del(ii)+CueOn);
 
@@ -212,7 +211,7 @@ for ii = 1:Ntrials
             lineWidthPix, [1 1 1], [xCenter yCenter], 2);
         Screen('Flip', window, t+del(ii)+ StimOn + StimGap*(kk-1));
         seq = BuildBrailleSequence(pp(stimuli(kk),:),leftright);
-        sendStim(seq,ioObjStim ,PortAddressStim);
+        sendStim(seq,ioObjTrig ,PortAddress);
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         % Send triggers to the MEG
         % Correct pattern on correct hand.
@@ -231,62 +230,69 @@ for ii = 1:Ntrials
         Screen('DrawLines', window, allCoords,...
             lineWidthPix, [1 1 1], [xCenter yCenter], 2);
         Screen('Flip', window, t+del(ii)+ StimOff + StimGap*(kk-1));
-        sendStim(all_down,ioObjStim ,PortAddressStim);
+        sendStim(all_down,ioObjTrig ,PortAddress);
         io64(ioObjTrig,PortAddress,0)
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         % Check button press
-        if  stimuli(kk) == r && Attendlr(ii) == leftright
-            if leftright == 1
-                disp('TARGET LEFT!!!!!!!!!!!!!');
-            elseif leftright == 2
-                disp('TARGET RIGHT!!!!!!!!!!!!!');
+        press_start = t+del(ii)+ StimOn + StimGap*(kk-1)+1;
+        now = GetSecs();
+        while now <= press_start
+            [key_pressed, seconds, key_code] = KbCheck;
+            if (key_pressed)
+                % send trig
+                io64(ioObjTrig, PortAddress, send_trig);
+                pause(0.05)
+                io64(io_obj, address, 0);
+                % exit loop if blue key pressed
+                begin = find(key_code) == KbName(blue_key);
             end
+            now = GetSecs();
         end
         [~, keyCode] = KbWait(0,2,t+del(ii)+ StimOn + StimGap*(kk-1)+1);
-        key = KbName(find(keyCode))
-        % Considers any buttons pressed
-        
-        if size(key,1) > 0            
-            if  stimuli(kk) == r && Attendlr(ii) == leftright
-                correctpress = correctpress +1;
-            else
-                wrongpress  = wrongpress +1;
-            end        
-        else % if buttons are not pressed but stimulus is correct
-            if stimuli(kk) == r && Attendlr(ii) == leftright
-                misspress = misspress +1;
-            end
-        end               
+%         key = KbName(find(keyCode))
+%         % Considers any buttons pressed
+%         
+%         if size(key,1) > 0            
+%             if  stimuli(kk) == r && Attendlr(ii) == leftright
+%                 correctpress = correctpress +1;
+%             else
+%                 wrongpress  = wrongpress +1;
+%             end        
+%         else % if buttons are not pressed but stimulus is correct
+%             if stimuli(kk) == r && Attendlr(ii) == leftright
+%                 misspress = misspress +1;
+%             end
+%         end               
                      
         
     end
     trialpattern(ii,:) = stimuli;
     rarray(ii) =r;
     
-    if mod(ii,nfeedback) ==0        
-
-        feddbacktext = sprintf('Score: %d/%d   \n\ntriggerfinger: %d   \n\nPlease take a short break',...
-            correctpress,(correctpress+misspress), wrongpress);
-        DrawFormattedText(window, feddbacktext , 'center', 'center');
-        correctpress = 0;
-        misspress = 0;
-        wrongpress = 0;
-        pause(PauseEndtrial)
-        io64(ioObjTrig,PortAddress,TriggerStart);
-        pause(1)
-        io64(ioObjTrig,PortAddress,0);
-
-    else    
-        DrawFormattedText(window, '' , 'center', 'center', white);   
-    
-    end
-    
+%     if mod(ii,nfeedback) ==0        
+% 
+%         feddbacktext = sprintf('Score: %d/%d   \n\ntriggerfinger: %d   \n\nPlease take a short break',...
+%             correctpress,(correctpress+misspress), wrongpress);
+%         DrawFormattedText(window, feddbacktext , 'center', 'center');
+%         correctpress = 0;
+%         misspress = 0;
+%         wrongpress = 0;
+%         pause(PauseEndtrial)
+%         io64(ioObjTrig,PortAddress,TriggerStart);
+%         pause(1)
+%         io64(ioObjTrig,PortAddress,0);
+% 
+%     else    
+%         DrawFormattedText(window, '' , 'center', 'center', white);   
+%     
+%     end
+    DrawFormattedText(window, '' , 'center', 'center', white);   
     Screen('Flip', window, t+del(ii)+ StimOff + StimGap*(kk-1)+PauseEndtrial);    
     
     % need to save 'attendlr', 'r' and 'stimuli' and 'leftright'
 end
-dd=datestr(datetime('today'));
-save(['logfiles/Braille_stim5_',dd,'.mat'],'trialpattern','Attendlr','rarray','handstim')
+% dd=datestr(datetime('today'));
+% save(['logfiles/Braille_stim5_',dd,'.mat'],'trialpattern','Attendlr','rarray','handstim')
 DrawFormattedText(window, 'Fin' , 'center', 'center', white);
 Screen('Flip',window,t+del(ii)+1);
 

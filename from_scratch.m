@@ -12,7 +12,7 @@ Npat = size(pp,1);
 all_down = BuildBrailleSequence(zeros(1,8),0);
 % Gives feedback every 10 trials.
 nfeedback = 10;
-N = 80;
+N = 2;
 PortAddress = 57336;
 % Trigger channels
 TriggerStart = 1;
@@ -52,10 +52,12 @@ Trial_length = StimOn + StimGap*Nstims+PauseEndtrial;
 del = 0:Trial_length:(N-1)*Trial_length;
 
 % add extra pause every 10 trials to display feedback
-feedbackpause=repmat(0:N/nfeedback-1,nfeedback,1);
-feedbackpause = reshape(feedbackpause,[nfeedback*(N/nfeedback ),1]);
-del = del + feedbackpause'*Restblock ; 
+% feedbackpause=repmat(0:N/nfeedback-1,nfeedback,1);
+% feedbackpause = reshape(feedbackpause,[nfeedback*(N/nfeedback ),1]);
+% del = del + feedbackpause'*Restblock ; 
 
+% coloured buttons - blue, yellow, green, red
+response_key = KbName({'b','y','g','r'});
 
 handstim = zeros(N,Nstims);
 
@@ -71,6 +73,8 @@ ioObjTrig = io64;
 status = io64(ioObjTrig);
 io64(ioObjTrig,PortAddress,0);
 disp('Port Cleared')
+global cogent;
+config_io
 %%
 correctpress = 0;
 wrongpress = 0;
@@ -93,7 +97,7 @@ for i = 1:N
     io64(ioObjTrig,PortAddress,0)
 
     % Show the cue 'left' (1) or 'right' (2)
-    io64(ioObjTrig,PortAddress,Attendlr(ii)+5)
+    io64(ioObjTrig,PortAddress,Attendlr(i)+5)
     fprintf("Hand is %d \n",Attendlr(i))
     pause(CueOn)
     io64(ioObjTrig,PortAddress,0)
@@ -131,7 +135,7 @@ for i = 1:N
         sendStim(all_down,ioObjTrig ,PortAddress);
         io64(ioObjTrig,PortAddress,0)
         % Check button press
-        if  stimuli(kk) == r && Attendlr(ii) == leftright
+        if  stimuli(k) == r && Attendlr(i) == leftright
             if leftright == 1
                 disp('TARGET LEFT!!!!!!!!!!!!!');
             elseif leftright == 2
@@ -139,8 +143,6 @@ for i = 1:N
             end
         end
         % Find a way to record the button press
-
-
 
     end
 

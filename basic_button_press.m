@@ -26,12 +26,13 @@ trig_chans = [1 2 4 8];
 
 %% Click button to start
 
-disp('Press the blue button to start');
+disp('Press the blue button to srgbbtart');
 begin = 0;
 while (~begin)
     [key_pressed, seconds, key_code] = KbCheck;
     if (key_pressed)
         send_trig = trig_chans(logical(key_code(response_key)));
+        disp(key_pressed)
         % send trig
         io64(io_obj, address, send_trig);
         pause(0.05)
