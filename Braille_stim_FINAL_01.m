@@ -148,12 +148,17 @@ misspress = 0;
 % 
 rarray = zeros(1,Ntrials);
 for ii = 1:Ntrials
+    
     DrawFormattedText(window, 'New trial' , 'center', 'center', white);
     Screen('Flip', window, t+del(ii));
+
     io64(ioObjTrig,PortAddress,TriggerStart);
+
     DrawFormattedText(window, 'New trial' , 'center', 'center', white);
     Screen('Flip', window, t+del(ii)+0.1);
+
     io64(ioObjTrig,PortAddress,0);
+
     Screen('DrawLines', window, allCoords,...
         lineWidthPix, [1 1 1], [xCenter yCenter], 2);
     Screen('Flip', window, t+del(ii)+Sampletime);    
@@ -163,9 +168,11 @@ for ii = 1:Ntrials
     seq = BuildBrailleSequence(pp(r,:),0);
     sendStim(seq,ioObjStim ,PortAddressStim);
     io64(ioObjTrig,PortAddress,TriggerSample);
+
     Screen('DrawLines', window, allCoords,...
         lineWidthPix, [1 1 1], [xCenter yCenter], 2);
     Screen('Flip', window, t+del(ii)+SampleOff);
+
     % Reset stimulators
     sendStim(all_down,ioObjStim ,PortAddressStim);
     io64(ioObjTrig,PortAddress,0)
@@ -175,9 +182,13 @@ for ii = 1:Ntrials
         fixCrossDimPix*[-1 1 (Attendlr(ii)-1.5)*2*[.25 .9 .25 .9]; 0 0 .75 0 -.75 0],...
         lineWidthPix, [1 1 1], [xCenter yCenter], 2);
     % Send trigger 'left' (4) or 'right' (8)
+    
     io64(ioObjTrig,PortAddress,Attendlr(ii)*4)
+
     Screen('Flip', window, t+del(ii)+CueOn);
+
     io64(ioObjTrig,PortAddress,0)
+
     Screen('DrawLines', window, allCoords,...
         lineWidthPix, [1 1 1], [xCenter yCenter], 2);
     Screen('Flip', window, t+del(ii)+CueOff);

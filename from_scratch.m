@@ -7,29 +7,28 @@ pp = [  1 1 0 0 1 1 0 0
         0 1 1 0 0 1 1 0
         1 1 1 1 0 0 0 0
         0 0 0 0 1 1 1 1];
-
 Npat = size(pp,1);
+
 all_down = BuildBrailleSequence(zeros(1,8),0);
 % Gives feedback every 10 trials.
 nfeedback = 10;
-Ntrials = 80;
+N = 80;
 PortAddress = 57336;
-% set up triggers
+% Trigger channels
 TriggerStart = 1;
 TriggerSample = 2;
-TriggerLeft = 4;
-TriggerRight = 8;
-TriggerFalseL = 16;
-TriggerFalseR = 32;
-TriggerTrue = 64;
+TriggerTrue = 4;
+TriggerFalseL = 3;
+TriggerFalseR = 5;
+CueLeft = 6;
+CueRight = 7;
 % Set up attend left/right condition in a pseudorandomised way: 50 left, 50 right
-Attendlr = [ones(1,Ntrials/2), ones(1,Ntrials/2)*2];
-Attendlr = Attendlr(randperm(Ntrials));
+Attendlr = [ones(1,N/2), ones(1,N/2)*2];
+Attendlr = Attendlr(randperm(N));
 % Defines how many targets there are in each trial
-g = gamrnd(4,.3,1,Ntrials);
+g = gamrnd(4,.3,1,N);
 g = round(g);
 g(g>5) = 5;
-
 
 jitteryn = 0;
 
@@ -49,125 +48,43 @@ Nstims = 5;
 PauseEndtrial = 4;
 Restblock = 21;
 
-for ii = 1:Ntrials
-    DrawFormattedText(window, 'New trial' , 'center', 'center', white);
-    Screen('Flip', window, t+del(ii));
+Trial_length = StimOn + StimGap*Nstims+PauseEndtrial;
+del = 0:Trial_length:(N-1)*Trial_length;
+r = randi(Npat,1);
+seq = BuildBrailleSequence(pp(r,:),0);
+seq = BuildBrailleSequence(seq,0);
+
+%% Initialise Parallel Port IO
+ioObjTrig = io64;
+% initialize the interface to the inpoutx64 system driver
+status = io64(ioObjTrig);
+io64(ioObjTrig,PortAddress,0);
+disp('Port Cleared')
+%%
+
+for i = 1:N
+    tic
+    % First start the trial by updating screen and sending trigger
     io64(ioObjTrig,PortAddress,TriggerStart);
-    DrawFormattedText(window, 'New trial' , 'center', 'center', white);
-    Screen('Flip', window, t+del(ii)+0.1);
+    pause(0.1)
     io64(ioObjTrig,PortAddress,0);
-    Screen('DrawLines', window, allCoords,...
-        lineWidthPix, [1 1 1], [xCenter yCenter], 2);
-    Screen('Flip', window, t+del(ii)+Sampletime);    
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    % Send the sample pattern
-    r = randi(Npat,1);
+    pause(Sampletime)% Send the sample pattern to both hands at the 1 second mark
+    r = randi(Npat,1); % Choose a random pattern from pp
     seq = BuildBrailleSequence(pp(r,:),0);
-    sendStim(seq,ioObjStim ,PortAddressStim);
+    sendStim(seq,ioObjTrig,PortAddress);
     io64(ioObjTrig,PortAddress,TriggerSample);
-    Screen('DrawLines', window, allCoords,...
-        lineWidthPix, [1 1 1], [xCenter yCenter], 2);
-    Screen('Flip', window, t+del(ii)+SampleOff);
-    % Reset stimulators
-    sendStim(all_down,ioObjStim ,PortAddressStim);
+    pause(SampleOff) %Leave pattern on for 2 seconds
+    sendStim(all_down,ioObjTrig ,PortAddress);
     io64(ioObjTrig,PortAddress,0)
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    % Display text 'left' (1) or 'right' (2)
-    Screen('DrawLines', window, ...
-        fixCrossDimPix*[-1 1 (Attendlr(ii)-1.5)*2*[.25 .9 .25 .9]; 0 0 .75 0 -.75 0],...
-        lineWidthPix, [1 1 1], [xCenter yCenter], 2);
-    % Send trigger 'left' (4) or 'right' (8)
-    io64(ioObjTrig,PortAddress,Attendlr(ii)*4)
-    Screen('Flip', window, t+del(ii)+CueOn);
+    % Show the cue 'left' (1) or 'right' (2)
+    io64(ioObjTrig,PortAddress,Attendlr(ii)+5)
+    pause(CueOn)
+    fprintf("Hand is %d \n",Attendlr(i))
     io64(ioObjTrig,PortAddress,0)
+
     Screen('DrawLines', window, allCoords,...
         lineWidthPix, [1 1 1], [xCenter yCenter], 2);
     Screen('Flip', window, t+del(ii)+CueOff);
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    % Randomly choose patterns excluding sample pattern
-    rrange = [1:r-1, r+1:Npat];
-    stimindex = randi(Npat-1,1,Nstims);
-    stimuli = rrange(stimindex);
-    % Add correct patterns
-    for jj = 1:g(ii)
-        stimuli(jj) = r;
-    end
-    stimuli = stimuli(randperm(Nstims));
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    % STIMULUS 1
-    % Choose which hand randomly 50% probability
-    for kk = 1:Nstims
-        leftright = round(rand(1))+1;
-        handstim(ii,kk) = leftright;
-
-        seq = BuildBrailleSequence(pp(stimuli(kk),:),leftright);
-        sendStim(seq,ioObjStim ,PortAddressStim);
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        % Send triggers to the MEG
-        % Correct pattern on correct hand.
-        if stimuli(kk) == r && Attendlr(ii) == leftright
-            io64(ioObjTrig,PortAddress,TriggerTrue)
-        % Correct pattern on wrong hand.
-        else
-            % Wrong pattern.
-            if leftright == 1;
-                io64(ioObjTrig,PortAddress,TriggerFalseL);
-            elseif leftright == 2;
-                io64(ioObjTrig,PortAddress,TriggerFalseR);
-            end
-        end
-        % Rest pins
-        sendStim(all_down,ioObjStim ,PortAddressStim);
-        io64(ioObjTrig,PortAddress,0)
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        % Check button press
-        if  stimuli(kk) == r && Attendlr(ii) == leftright
-            if leftright == 1
-                disp('TARGET LEFT!!!!!!!!!!!!!');
-            elseif leftright == 2
-                disp('TARGET RIGHT!!!!!!!!!!!!!');
-            end
-        end
-        [~, keyCode] = KbWait(0,2,t+del(ii)+ StimOn + StimGap*(kk-1)+1);
-        key = KbName(find(keyCode))
-        % Considers any buttons pressed
-        
-        if size(key,1) > 0            
-            if  stimuli(kk) == r && Attendlr(ii) == leftright
-                correctpress = correctpress +1;
-            else
-                wrongpress  = wrongpress +1;
-            end        
-        else % if buttons are not pressed but stimulus is correct
-            if stimuli(kk) == r && Attendlr(ii) == leftright
-                misspress = misspress +1;
-            end
-        end               
-                     
-        
-    end
-    trialpattern(ii,:) = stimuli;
-    rarray(ii) =r;
     
-    if mod(ii,nfeedback) ==0        
-
-        feddbacktext = sprintf('Score: %d/%d   \n\ntriggerfinger: %d   \n\nPlease take a short break',...
-            correctpress,(correctpress+misspress), wrongpress);
-
-        correctpress = 0;
-        misspress = 0;
-        wrongpress = 0;
-        pause(PauseEndtrial)
-        io64(ioObjTrig,PortAddress,TriggerStart);
-        pause(1)
-        io64(ioObjTrig,PortAddress,0);
-
-    else    
-        DrawFormattedText(window, '' , 'center', 'center', white);   
-    
-    end
-    
-    Screen('Flip', window, t+del(ii)+ StimOff + StimGap*(kk-1)+PauseEndtrial);    
-    
-    % need to save 'attendlr', 'r' and 'stimuli' and 'leftright'
+    toc
 end
