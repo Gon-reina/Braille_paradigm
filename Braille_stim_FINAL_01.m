@@ -36,6 +36,8 @@ TriggerFalseL = 3;
 TriggerFalseR = 5;
 TriggerLeft = 6;
 TriggerRight = 7;
+LeftPress = 8;
+RightPress = 16;
 % Set up attend left/right condition in a pseudorandomised way: 50 left, 50 right
 Attendlr = [ones(1,Ntrials/2), ones(1,Ntrials/2)*2];
 Attendlr = Attendlr(randperm(Ntrials));
@@ -234,6 +236,7 @@ for ii = 1:Ntrials
         io64(ioObjTrig,PortAddress,0)
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         % Check button press
+        
         press_start = t+del(ii)+ StimOn + StimGap*(kk-1)+1;
         now = GetSecs();
         while now <= press_start
@@ -247,8 +250,9 @@ for ii = 1:Ntrials
                 begin = find(key_code) == KbName(blue_key);
             end
             now = GetSecs();
+            pause(0.005)
         end
-        [~, keyCode] = KbWait(0,2,t+del(ii)+ StimOn + StimGap*(kk-1)+1);
+%         [~, keyCode] = KbWait(0,2,t+del(ii)+ StimOn + StimGap*(kk-1)+1);
 %         key = KbName(find(keyCode))
 %         % Considers any buttons pressed
 %         
