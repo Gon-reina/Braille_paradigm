@@ -14,7 +14,6 @@ blue_key = KbName(response_key(1)); %i.e. '6^'
 % initialise key press queue
 keylist=zeros(1,256);%%create a list of 256 zeros
 keylist(response_key)=1;%%set keys you interested in to 1
-KbQueueCreate(0,keylist);
 
 %% Set up triggers
 %Clear ports
@@ -58,6 +57,7 @@ while (~begin)
         
         % exit loop if blue key pressed
         begin = find(key_code) == KbName(blue_key);
+%     break
     end
 end
 disp('Success!')

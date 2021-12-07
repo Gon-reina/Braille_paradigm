@@ -66,7 +66,12 @@ disp('Ports Cleared')
 % ioObjTrig = io64;
 % statusStim = io64(ioObjTrig);
 % io64(ioObjTrig,PortAddress,0);
-
+% r = 5;
+% seq = BuildBrailleSequence(pp(r,:),0);
+% sendStim(seq,ioObjTrig ,PortAddress);
+% io64(ioObjTrig,PortAddress,TriggerSample);
+% io64(ioObjTrig,PortAddress,0);
+% sendStim(all_down,ioObjTrig ,PortAddress);
 %% Initialise PTB
 PsychDefaultSetup(2);
 screens = Screen('Screens');
@@ -187,15 +192,16 @@ for ii = 1:Ntrials
         lineWidthPix, [1 1 1], [xCenter yCenter], 2);
     % Send trigger 'left' (4) or 'right' (8)
     
-    io64(ioObjTrig,PortAddress,Attendlr(ii)+5)
+%     io64(ioObjTrig,PortAddress,Attendlr(ii)+5)
 
     Screen('Flip', window, t+del(ii)+CueOn);
-
-    io64(ioObjTrig,PortAddress,0)
+    io64(ioObjTrig,PortAddress,Attendlr(ii)+5)
+    
 
     Screen('DrawLines', window, allCoords,...
         lineWidthPix, [1 1 1], [xCenter yCenter], 2);
     Screen('Flip', window, t+del(ii)+CueOff);
+    io64(ioObjTrig,PortAddress,0)
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % Randomly choose patterns excluding sample pattern
     rrange = [1:r-1, r+1:Npat];
@@ -243,24 +249,25 @@ for ii = 1:Ntrials
         press_start = t+del(ii)+ StimOn + StimGap*(kk-1)+1;
         now = GetSecs();
         while now <= press_start
+            disp("checking button press")
             [key_pressed, seconds, key_code] = KbCheck;
             if (key_pressed)
                 key_number = find(key_code);
                 if ismember(key_number,left_hand)
-                    io64(io_obj, address, LeftPress);
-                    pause(0.05)
-                    io64(io_obj, address, 0);
+                    io64(ioObjTrig, PortAddress, LeftPress);
+                    pause(0.005)
+                    io64(ioObjTrig, PortAddress, 0);
                     disp("left_press")
                 elseif ismember(key_number,right_hand)
-                    io64(io_obj, address, RightPress);
-                    pause(0.05)
-                    io64(io_obj, address, 0);
+                    io64(ioObjTrig, PortAddress, RightPress);
+                    pause(0.005)
+                    io64(ioObjTrig, PortAddress, 0);
                     disp("right_press")
                 end
                 break
             end
             now = GetSecs();
-            pause(0.005)
+            pause(0.01)
         end
 %         [~, keyCode] = KbWait(0,2,t+del(ii)+ StimOn + StimGap*(kk-1)+1);
         key = KbName(find(key_code));
