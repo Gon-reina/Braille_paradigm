@@ -24,8 +24,8 @@ all_down = BuildBrailleSequence(zeros(1,8),0);
 
 %%
 % Gives feedback every 10 trials.
-nfeedback = 2;
-Ntrials = 10;
+nfeedback = 10;
+Ntrials = 20;
 PortAddress = 57336;
 
 % coloured buttons - blue, yellow, green, red
@@ -276,13 +276,13 @@ for ii = 1:Ntrials
 %         
         if size(key,1) > 0            
             if  stimuli(kk) == r && Attendlr(ii) == leftright
-                correctpress = correctpress +1
+                correctpress = correctpress +1;
             else
-                wrongpress  = wrongpress +1
+                wrongpress  = wrongpress +1;
             end        
         else % if buttons are not pressed but stimulus is correct
             if stimuli(kk) == r && Attendlr(ii) == leftright
-                misspress = misspress +1
+                misspress = misspress +1;
             end
         end               
                      

@@ -30,11 +30,11 @@ io64(io_obj,address,0);
 trig_chans = [1 2 4 8];
 
 %% Click button to start
-
 disp('Press the blue button to start');
 begin = 0;
 while (~begin)
-    [key_pressed, seconds, key_code] = KbCheck;
+    [key_pressed, seconds, key_code] = KbCheck();
+    disp(find(key_code))
     if (key_pressed)
         key_number = find(key_code);
         if ismember(key_number,left_hand)
@@ -50,12 +50,13 @@ while (~begin)
         end
 %         send_trig = trig_chans(logical(key_code(response_key)));
 %         disp(send_trig)
-        % send trigb
+        % send trigbbbyybbyyyybbbb
 %         io64(io_obj, address, send_trig);
 %         pause(0.05)
 %         io64(io_obj, address, 0);
         
         % exit loop if blue key pressed
+        
         begin = find(key_code) == KbName(blue_key);
 %     break
     end
