@@ -1,12 +1,5 @@
-function pulse = BuildBrailleSequence(seq,varargin)
+function pulse = BuildBrailleSequence(seq,hand)
 % Creates data stream for selected pattern
-
-% Right is the grey, left is the black
-% seq = fliplr([  1 0     0 1;
-%                 1 0     0 1;
-%                 1 0     0 1;
-%                 1 0     0 1]);
-
 pulse = [];
 dat = 32; % data
 clk = 64; % clock
@@ -20,12 +13,6 @@ for it = 1:size(seq(:),1)
     end
 end
 
-if nargin == 1
-    hand  = 3;
-else
-    hand = varargin{1};
-end
-
 switch hand
     case 1
     % Sends pattern to left stimualtor only
@@ -36,7 +23,6 @@ switch hand
     case 0
     % Sends same pattern to both stimualtors
     pulse = repmat(pulse,1,2);
-    
 end
 
 pulse(33) = stb;
