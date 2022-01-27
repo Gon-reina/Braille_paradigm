@@ -4,6 +4,6 @@ function sendStim(seq,ioObjTrig ,PortAddress)
         outp(PortAddress,seq(i));
         
         outp(PortAddress,0);
-        pause(0.001)
+        pause(0.01)
     end
 end

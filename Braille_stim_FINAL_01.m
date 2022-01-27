@@ -16,7 +16,7 @@ pp = [  1 1 0 0 1 1 0 0     % easy
     0 0 1 1 0 0 1 1     % easy
     0 1 1 0 0 1 1 0     % easy
     1 1 1 1 0 0 0 0     % easy
-    0 0 0 0 1 1 1 1];   % easy
+    0 0 0 0 1 1 1 1];   % easy 66 71 82 89
 
 Npat = size(pp,1);
 
@@ -29,8 +29,8 @@ Ntrials = 10;
 PortAddress = 57336;
 
 % coloured buttons - blue, yellow, green, red
-left_hand = KbName({'b','y'});
-right_hand = KbName({'g','r'});
+left_hand = [98,121];
+right_hand = [103,114];
 %%%%% set up triggers
 TriggerStart = 1;
 TriggerSample = 2;
@@ -248,29 +248,24 @@ for ii = 1:Ntrials
         
         press_start = t+del(ii)+ StimOn + StimGap*(kk-1)+1;
         now = GetSecs();
-        while now <= press_start
+%         while now <= press_start
+        key_pressed = getkeywait(press_start - now)
             disp("checking button press")
-            [key_pressed, seconds, key_code] = KbCheck;
-            if (key_pressed)
-                key_number = find(key_code);
-                if ismember(key_number,left_hand)
+            if key_pressed >= 1
+                if ismember(key_pressed,left_hand)
                     io64(ioObjTrig, PortAddress, LeftPress);
-                    pause(0.01)
+                    pause(0.05)
                     io64(ioObjTrig, PortAddress, 0);
                     disp("left_press")
-                elseif ismember(key_number,right_hand)
+                elseif ismember(key_pressed,right_hand)
                     io64(ioObjTrig, PortAddress, RightPress);
-                    pause(0.01)
+                    pause(0.05)
                     io64(ioObjTrig, PortAddress, 0);
                     disp("right_press")
                 end
                 break
             end
-            now = GetSecs();
-%             pause(0.005)
-        end
-%         [~, keyCode] = KbWait(0,2,t+del(ii)+ StimOn + StimGap*(kk-1)+1);
-        key = KbName(find(key_code));
+        key = KbName(find(key_pressed));
         fprintf('Keycode for pressed: %d.\n',key)
 %         % Considers any buttons pressed
 %         

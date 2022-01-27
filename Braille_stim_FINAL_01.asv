@@ -16,7 +16,7 @@ pp = [  1 1 0 0 1 1 0 0     % easy
     0 0 1 1 0 0 1 1     % easy
     0 1 1 0 0 1 1 0     % easy
     1 1 1 1 0 0 0 0     % easy
-    0 0 0 0 1 1 1 1];   % easy
+    0 0 0 0 1 1 1 1];   % easy 66 71 82 89
 
 Npat = size(pp,1);
 
@@ -24,8 +24,8 @@ all_down = BuildBrailleSequence(zeros(1,8),0);
 
 %%
 % Gives feedback every 10 trials.
-nfeedback = 10;
-Ntrials = 20;
+nfeedback = 2;
+Ntrials = 10;
 PortAddress = 57336;
 
 % coloured buttons - blue, yellow, green, red
@@ -248,27 +248,27 @@ for ii = 1:Ntrials
         
         press_start = t+del(ii)+ StimOn + StimGap*(kk-1)+1;
         now = GetSecs();
-        while now <= press_start
+%         while now <= press_start
+        key_pressed = getkeywait(press_start - now)
             disp("checking button press")
-            [key_pressed, seconds, key_code] = KbCheck;
-            if (key_pressed)
+            if key_pressed >= 1
                 key_number = find(key_code);
                 if ismember(key_number,left_hand)
                     io64(ioObjTrig, PortAddress, LeftPress);
-                    pause(0.01)
+                    pause(0.05)
                     io64(ioObjTrig, PortAddress, 0);
                     disp("left_press")
                 elseif ismember(key_number,right_hand)
                     io64(ioObjTrig, PortAddress, RightPress);
-                    pause(0.01)
+                    pause(0.05)
                     io64(ioObjTrig, PortAddress, 0);
                     disp("right_press")
                 end
                 break
             end
-            now = GetSecs();
+            now = GetSecs()
 %             pause(0.005)
-        end
+%         end
 %         [~, keyCode] = KbWait(0,2,t+del(ii)+ StimOn + StimGap*(kk-1)+1);
         key = KbName(find(key_code));
         fprintf('Keycode for pressed: %d.\n',key)
@@ -276,13 +276,13 @@ for ii = 1:Ntrials
 %         
         if size(key,1) > 0            
             if  stimuli(kk) == r && Attendlr(ii) == leftright
-                correctpress = correctpress +1;
+                correctpress = correctpress +1
             else
-                wrongpress  = wrongpress +1;
+                wrongpress  = wrongpress +1
             end        
         else % if buttons are not pressed but stimulus is correct
             if stimuli(kk) == r && Attendlr(ii) == leftright
-                misspress = misspress +1;
+                misspress = misspress +1
             end
         end               
                      

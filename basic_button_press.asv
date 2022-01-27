@@ -4,18 +4,16 @@ clear;
 
 % coloured buttons - blue, yellow, green, red
 % left_hand = KbName({'b','y'});
-left_hand = [98,121];
-% right_hand = KbName({'g','r'});
-right_hand = [103,114];
-% response_key = KbName({'b','y','g','r'});
+right_hand = KbName({'g','r'});
+response_key = KbName({'b','y','g','r'});
 LeftPress = 8;
 RightPress = 4;
 
 % button to start each block (corresponding to index finger button)
-% blue_key = KbName(response_key(1)); %i.e. '6^'
+blue_key = KbName(response_key(1)); %i.e. '6^'
 % initialise key press queue
-% keylist=zeros(1,256);%%create a list of 256 zeros
-% keylist(response_key)=1;%%set keys you interested in to 1
+keylist=zeros(1,256);%%create a list of 256 zeros
+keylist(response_key)=1;%%set keys you interested in to 1
 
 %% Set up triggers
 %Clear ports
@@ -34,17 +32,17 @@ trig_chans = [1 2 4 8];
 %% Click button to start
 disp('Press the blue button to start');
 begin = 0;
-% while (~begin)
-    key_pressed = getkeywait(5);
-%     disp(find(key_code))
-    if key_pressed >= 1
-%         key_number = find(key_code);
-        if ismember(key_pressed,left_hand)
+while (~begin)
+    [key_pressed, seconds, key_code] = KbCheck();
+    disp(find(key_code))
+    if (key_pressed)
+        key_number = find(key_code);
+        if ismember(key_number,left_hand)
             io64(io_obj, address, LeftPress);
             pause(0.05)
             io64(io_obj, address, 0);
             disp("left_press")
-        elseif ismember(key_pressed,right_hand)
+        elseif ismember(key_number,right_hand)
             io64(io_obj, address, RightPress);
             pause(0.05)
             io64(io_obj, address, 0);
@@ -59,10 +57,10 @@ begin = 0;
         
         % exit loop if blue key pressed
         
-%         begin = find(key_code) == KbName(blue_key);
+        begin = find(key_code) == KbName(blue_key);
 %     break
     end
-% end
+end
 disp('Success!')
 
 %% Some code for during trials that may be useful to someone
