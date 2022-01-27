@@ -78,3 +78,61 @@ disp('Success!')
 %     end
 %     current_time = GetSecs - stim_ontime;
 % end
+%%
+%     KbWait; % press any key to start the moveme
+%     buttonbox=0;
+%     [id,name] = GetKeyboardIndices; % may need adjustment
+%     for i=1:length(name)  %for each possible device
+%         buttonbox=id(i);  %grab the correct id, and exit loop
+%         break;
+%     end 
+    %Only list to keys r g b y
+    keyFlags = zeros(1,256);
+    keyFlags([66,89,71,82])=1;
+    % Set arrays for each hand
+    left_press = [66,89];
+    right_press = [71,82];
+    % start queue
+    KbQueueRelease(0);
+    KbQueueCreate(0,keyFlags); % initialize the Queue
+    
+    EXIT_SIGNAL = 0;        
+    KbQueueStart;% start keyboard monitoring
+    while EXIT_SIGNAL==0
+         [pressed, firstPress, firstRelease, lastPress, lastRelease]=KbQueueCheck;
+        if pressed
+            key_pressed = find(firstPress);
+            if ismember(key_pressed,left_press)
+%                 io64(ioObjTrig, PortAddress, LeftPress);
+%                 pause(0.05)
+%                 io64(ioObjTrig, PortAddress, 0);
+                disp("left_press")
+            elseif ismember(key_pressed,right_press)
+%                 io64(ioObjTrig, PortAddress, RightPress);
+%                 pause(0.05)
+%                 io64(ioObjTrig, PortAddress, 0);
+                disp("right_press")
+            end
+%             break
+        end
+    end
+    KbQueueStop;
+    %byybrrrrrrrrrryyyyryryryryryryryr
+%%
+deviceString='Keyboard';%% name of the scanner trigger box
+[id,name] = GetKeyboardIndices;% get a list of all devices connected
+
+device=0;
+
+for i=1:length(name)%for each possible device
+ if strcmp(name{i},deviceString)%compare the name to the name you want
+ device=id(i);%grab the correct id, and exit loop
+ break;
+ end
+end
+
+if device==0%%error checking
+
+%  error(‘No device by that name was detected’);
+
+end

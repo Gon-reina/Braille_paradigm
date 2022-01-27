@@ -4,19 +4,20 @@
 
 % Modified 07/04/17: Added 4s pause after last stimulus in each trial and
 % eliminated jitter between trials. New Trial lenght is 12.5s . 
-% Now accepts any button (or keyboard!) presses, not just the blue buttons. 
+% Now accepts any button (or keyboard!) presses,ygyggrygyryrgrgrgybrgr not just the blue buttons. 
 % Using only 5 easy patterns from Bauer 2006 paper. 
 
 clear all
 close all
 clc
+warning off
 %%
 % 06/04/17 Changed patterns to make task easier
 pp = [  1 1 0 0 1 1 0 0     % easy
     0 0 1 1 0 0 1 1     % easy
     0 1 1 0 0 1 1 0     % easy
     1 1 1 1 0 0 0 0     % easy
-    0 0 0 0 1 1 1 1];   % easy 66 71 82 89
+    0 0 0 0 1 1 1 1];   % easy 
 
 Npat = size(pp,1);
 
@@ -29,8 +30,12 @@ Ntrials = 10;
 PortAddress = 57336;
 
 % coloured buttons - blue, yellow, green, red
-left_hand = [98,121];
-right_hand = [103,114];
+%Only list to keys r g b y
+keyFlags = zeros(1,256);
+keyFlags([66,89,71,82])=1;
+% Set arrays for each hand
+left_press = [66,89];
+right_press = [71,82];
 %%%%% set up triggers
 TriggerStart = 1;
 TriggerSample = 2;
@@ -248,23 +253,26 @@ for ii = 1:Ntrials
         
         press_start = t+del(ii)+ StimOn + StimGap*(kk-1)+1;
         now = GetSecs();
-%         while now <= press_start
-        key_pressed = getkeywait(press_start - now)
-            disp("checking button press")
-            if key_pressed >= 1
-                if ismember(key_pressed,left_hand)
+        KbQueueRelease(0);
+        KbQueueCreate(0,keyFlags); % initialize the Queue
+        KbQueueStart;% start keyboard monitoring
+        while now <= press_start
+            [pressed, firstPress, firstRelease, lastPress, lastRelease]=KbQueueCheck;
+            if pressed
+                key_pressed = find(firstPress);
+                if ismember(key_pressed,left_press)
                     io64(ioObjTrig, PortAddress, LeftPress);
                     pause(0.05)
                     io64(ioObjTrig, PortAddress, 0);
-                    disp("left_press")
-                elseif ismember(key_pressed,right_hand)
+                elseif ismember(key_pressed,right_press)
                     io64(ioObjTrig, PortAddress, RightPress);
                     pause(0.05)
                     io64(ioObjTrig, PortAddress, 0);
-                    disp("right_press")
                 end
                 break
             end
+        end
+        KbQueueStop;
         key = KbName(find(key_pressed));
         fprintf('Keycode for pressed: %d.\n',key)
 %         % Considers any buttons pressed
