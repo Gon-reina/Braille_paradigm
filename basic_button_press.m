@@ -94,9 +94,9 @@ disp('Success!')
     right_press = [71,82];
     % start queue
     KbQueueRelease(0);
-    KbQueueCreate(0,keyFlags); % initialize the Queue
+    KbQueueCreate(0,keyFlags); % initializebrbrbrbr the Queuebrbrbrbrb
     
-    EXIT_SIGNAL = 0;        
+    EXIT_SIGNAL = 0;
     KbQueueStart;% start keyboard monitoring
     while EXIT_SIGNAL==0
          [pressed, firstPress, firstRelease, lastPress, lastRelease]=KbQueueCheck;
@@ -104,7 +104,7 @@ disp('Success!')
             key_pressed = find(firstPress);
             if ismember(key_pressed,left_press)
 %                 io64(ioObjTrig, PortAddress, LeftPress);
-%                 pause(0.05)
+%                 pause(0.05)brbrbrbbrbrbrrbr
 %                 io64(ioObjTrig, PortAddress, 0);
                 disp("left_press")
             elseif ismember(key_pressed,right_press)

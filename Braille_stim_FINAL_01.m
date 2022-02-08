@@ -250,46 +250,48 @@ for ii = 1:Ntrials
         io64(ioObjTrig,PortAddress,0)
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         % Check button press
-        
-        press_start = t+del(ii)+ StimOn + StimGap*(kk-1)+1;
-        now = GetSecs();
-        KbQueueRelease(0);
-        KbQueueCreate(0,keyFlags); % initialize the Queue
-        KbQueueStart;% start keyboard monitoring
-        while now <= press_start
-            [pressed, firstPress, firstRelease, lastPress, lastRelease]=KbQueueCheck;
-            if pressed
-                key_pressed = find(firstPress);
-                if ismember(key_pressed,left_press)
-                    io64(ioObjTrig, PortAddress, LeftPress);
-                    pause(0.05)
-                    io64(ioObjTrig, PortAddress, 0);
-                elseif ismember(key_pressed,right_press)
-                    io64(ioObjTrig, PortAddress, RightPress);
-                    pause(0.05)
-                    io64(ioObjTrig, PortAddress, 0);
-                end
-                break
-            end
-        end
-        KbQueueStop;
-        key = KbName(find(key_pressed));
-        fprintf('Keycode for pressed: %d.\n',key)
-%         % Considers any buttons pressed
-%         
-        if size(key,1) > 0            
-            if  stimuli(kk) == r && Attendlr(ii) == leftright
-                correctpress = correctpress +1
-            else
-                wrongpress  = wrongpress +1
-            end        
-        else % if buttons are not pressed but stimulus is correct
-            if stimuli(kk) == r && Attendlr(ii) == leftright
-                misspress = misspress +1
-            end
-        end               
+        disp("All good in the hood")
+%         press_start = t+del(ii)+ StimOn + StimGap*(kk-1)+1;
+%         now = GetSecs();
+%         KbQueueRelease(0);
+%         KbQueueCreate(0,keyFlags); % initialize the Queue
+%         KbQueueStart;% start keyboard monitoring
+%         while now <= press_start
+%             [pressed, firstPress, firstRelease, lastPress, lastRelease]=KbQueueCheck;
+%             if pressed
+%                 key_pressed = find(firstPress);
+%                 disp("Key pressed!!")
+%                 if ismember(key_pressed,left_press)
+%                     io64(ioObjTrig, PortAddress, LeftPress);
+%                     pause(0.05)
+%                     io64(ioObjTrig, PortAddress, 0);
+%                 elseif ismember(key_pressed,right_press)
+%                     io64(ioObjTrig, PortAddress, RightPress);
+%                     pause(0.05)
+%                     io64(ioObjTrig, PortAddress, 0);
+%                 end
+%                 break
+%             end
+%         end
+%         KbQueueStop;
+%         disp("I died")
+%         key = KbName(find(key_pressed));
+%         fprintf('Keycode for pressed: %d.\n',key)
+% %         % Considers any buttons pressed
+% %         
+%         if size(key,1) > 0            
+%             if  stimuli(kk) == r && Attendlr(ii) == leftright
+%                 correctpress = correctpress +1
+%             else
+%                 wrongpress  = wrongpress +1
+%             end        
+%         else % if buttons are not pressed but stimulus is correct
+%             if stimuli(kk) == r && Attendlr(ii) == leftright
+%                 misspress = misspress +1
+%             end
+%         end               
                      
-        
+        disp("i keep going")
     end
     trialpattern(ii,:) = stimuli;
     rarray(ii) =r;
