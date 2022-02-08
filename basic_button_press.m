@@ -86,31 +86,48 @@ disp('Success!')
 %         buttonbox=id(i);  %grab the correct id, and exit loop
 %         break;
 %     end 
+    
+
+%% Initialise Parallel Port IO
+    
+PortAddress = 57336;
+ioObjTrig = io64;
+LeftPress = 8;
+RightPress = 16;
+    % initialize the interface to the inpoutx64 system
+    % driverbbbrrrrbrbrbrbrbr
+    status = io64(ioObjTrig);
+    io64(ioObjTrig,PortAddress,0);
+
+    global cogent;
+    config_io
+    io64(cogent.io.ioObj,PortAddress,0);
+    disp('Ports Cleared')
     %Only list to keys r g b y
     keyFlags = zeros(1,256);
     keyFlags([66,89,71,82])=1;
     % Set arrays for each hand
-    left_press = [66,89];
+    eft_press = [66,89];
     right_press = [71,82];
     % start queue
     KbQueueRelease(0);
     KbQueueCreate(0,keyFlags); % initializebrbrbrbr the Queuebrbrbrbrb
     
     EXIT_SIGNAL = 0;
-    KbQueueStart;% start keyboard monitoring
+    KbQueueStart;% start keyboard monitoringb
     while EXIT_SIGNAL==0
          [pressed, firstPress, firstRelease, lastPress, lastRelease]=KbQueueCheck;
         if pressed
             key_pressed = find(firstPress);
             if ismember(key_pressed,left_press)
-%                 io64(ioObjTrig, PortAddress, LeftPress);
-%                 pause(0.05)brbrbrbbrbrbrrbr
-%                 io64(ioObjTrig, PortAddress, 0);
+                io64(ioObjTrig, PortAddress, LeftPress);
+                pause(0.05)
+                io64(ioObjTrig, PortAddress, 0);
                 disp("left_press")
             elseif ismember(key_pressed,right_press)
-%                 io64(ioObjTrig, PortAddress, RightPress);
-%                 pause(0.05)
-%                 io64(ioObjTrig, PortAddress, 0);
+                io64(ioObjTrig, PortAddress, RightPress);
+                pause(0.05)
+                io64(ioObjTrig, PortAddress, 0);
                 disp("right_press")
             end
 %             break
@@ -136,3 +153,61 @@ if device==0%%error checking
 %  error(‘No device by that name was detected’);
 
 end
+%% Script for basic button press in OPM lab
+% Uses fORP box by Current Designs
+clear;
+
+% coloured buttons - blue, yellow, green, red
+response_key = KbName({'b','y','g','r'});
+
+% button to start each block (corresponding to index finger button)
+blue_key = KbName(response_key(1)); %i.e. '6^'
+% initialise key press queue
+keylist=zeros(1,256);%%create a list of 256 zeros
+keylist(response_key)=1;%%set keys you interested in to 1
+KbQueueCreate(0,keylist);
+
+%% Set up triggers
+%Clear ports
+address = 57336;
+io_obj = io64;
+% initialize the interface to the inpoutx64 system driver
+status = io64(io_obj);
+io64(io_obj,address,0);
+disp('Ports Cleared')
+
+% Trigger channels for each colour button
+trig_chans = [1 2 4 8];
+
+%% Click button to start
+
+disp('Press the blue button to start');
+begin = 0;
+while (~begin)
+    [key_pressed, seconds, key_code] = KbCheck;
+    if (key_pressed)
+        send_trig = trig_chans(logical(key_code(response_key)));
+        % send trig
+        io64(io_obj, address, send_trig);
+        pause(0.05)
+        io64(io_obj, address, 0);
+        
+        % exit loop if blue key pressed
+        begin = find(key_code) == KbName(blue_key);
+    end
+end
+disp('Success!')
+
+%% Some code for during trials that may be useful to someone
+
+% KbQueueFlush(); % removes all keyboard presses
+% KbQueueStart();
+% 
+% while (current_time <= stimulus_duration)
+%     [key_pressed, t_first_press, key_code] = KbQueueCheck();
+%     if key_pressed
+%         response = 1;
+%         %                     RT = t_first_press - trial_start_time;
+%     end
+%     current_time = GetSecs - stim_ontime;
+% end
