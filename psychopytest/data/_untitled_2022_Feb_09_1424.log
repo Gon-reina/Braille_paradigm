@@ -1,0 +1,15 @@
+2.8077 	WARNING 	We strongly recommend you activate the PTB sound engine in PsychoPy prefs as the preferred audio engine. Its timing is vastly superior. Your prefs are currently set to use ['sounddevice', 'PTB', 'pyo', 'pygame'] (in that order).
+18.1849 	DATA 	Keypress: b
+18.7634 	DATA 	Keypress: b
+19.2792 	DATA 	Keypress: b
+19.8924 	DATA 	Keypress: b
+23.1926 	DATA 	Keypress: y
+23.5728 	DATA 	Keypress: y
+23.9117 	DATA 	Keypress: y
+24.2070 	DATA 	Keypress: y
+28.1586 	DATA 	Keypress: g
+28.5229 	DATA 	Keypress: g
+28.7906 	DATA 	Keypress: g
+33.2733 	DATA 	Keypress: r
+33.7075 	DATA 	Keypress: r
+34.0907 	DATA 	Keypress: r

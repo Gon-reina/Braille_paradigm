@@ -3,7 +3,7 @@ function pulse = BuildBrailleSequence(seq,hand)
 pulse = [];
 dat = 32; % data
 clk = 64; % clock
-stb = 128; % strobe
+stb = 128; % strobe 
 
 for it = 1:size(seq(:),1)
     if seq(it) == 1
@@ -11,6 +11,7 @@ for it = 1:size(seq(:),1)
     else
         pulse = cat(2,pulse,[0 clk]);
     end
+    disp(pulse)
 end
 
 switch hand
