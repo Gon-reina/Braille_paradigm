@@ -13,7 +13,7 @@ from psychopy.visual import ShapeStim
 win = visual.Window(size=(500, 400), units='height')
 
 # some shapes:
-arrowVert = [(-0.4,0.05),(-0.4,-0.05),(-.2,-0.05),(-.2,-0.1),(0,0),(-.2,0.1),(-.2,0.05)]
+arrowVert = [(0.4,0.05),(0.4,-0.05),(.2,-0.05),(.2,-0.1),(0,0),(.2,0.1),(.2,0.05)]
 arrow = ShapeStim(win, vertices=arrowVert, fillColor='gray', size=.5, lineColor='white')
 
 while not event.getKeys():

@@ -80,6 +80,22 @@
         <Param name="units" updates="None" val="from exp settings" valType="str"/>
         <Param name="wrapWidth" updates="constant" val="" valType="num"/>
       </TextComponent>
+      <ParallelOutComponent name="true_pattern">
+        <Param name="address" updates="None" val="0xDFF8 " valType="str"/>
+        <Param name="disabled" updates="None" val="False" valType="bool"/>
+        <Param name="durationEstim" updates="None" val="" valType="code"/>
+        <Param name="name" updates="None" val="true_pattern" valType="code"/>
+        <Param name="saveStartStop" updates="None" val="True" valType="bool"/>
+        <Param name="startData" updates="None" val="1" valType="code"/>
+        <Param name="startEstim" updates="None" val="" valType="code"/>
+        <Param name="startType" updates="None" val="time (s)" valType="str"/>
+        <Param name="startVal" updates="None" val="1" valType="code"/>
+        <Param name="stopData" updates="None" val="0" valType="code"/>
+        <Param name="stopType" updates="None" val="duration (s)" valType="str"/>
+        <Param name="stopVal" updates="constant" val="0" valType="code"/>
+        <Param name="syncScreen" updates="constant" val="True" valType="bool"/>
+        <Param name="syncScreenRefresh" updates="None" val="False" valType="bool"/>
+      </ParallelOutComponent>
       <PolygonComponent name="cross">
         <Param name="colorSpace" updates="constant" val="rgb" valType="str"/>
         <Param name="contrast" updates="constant" val="1" valType="num"/>
@@ -106,7 +122,7 @@
         <Param name="units" updates="None" val="from exp settings" valType="str"/>
         <Param name="vertices" updates="constant" val="" valType="list"/>
       </PolygonComponent>
-      <PolygonComponent name="cue">
+      <PolygonComponent name="cue_right">
         <Param name="colorSpace" updates="constant" val="rgb" valType="str"/>
         <Param name="contrast" updates="constant" val="1" valType="num"/>
         <Param name="disabled" updates="None" val="False" valType="bool"/>
@@ -116,7 +132,33 @@
         <Param name="lineColor" updates="constant" val="white" valType="color"/>
         <Param name="lineWidth" updates="constant" val="1" valType="num"/>
         <Param name="nVertices" updates="constant" val="4" valType="int"/>
-        <Param name="name" updates="None" val="cue" valType="code"/>
+        <Param name="name" updates="None" val="cue_right" valType="code"/>
+        <Param name="opacity" updates="constant" val="" valType="num"/>
+        <Param name="ori" updates="constant" val="0" valType="num"/>
+        <Param name="pos" updates="constant" val="(0, 0)" valType="list"/>
+        <Param name="saveStartStop" updates="None" val="True" valType="bool"/>
+        <Param name="shape" updates="None" val="custom polygon..." valType="str"/>
+        <Param name="size" updates="constant" val="(0.25, 0.25)" valType="list"/>
+        <Param name="startEstim" updates="None" val="" valType="code"/>
+        <Param name="startType" updates="None" val="time (s)" valType="str"/>
+        <Param name="startVal" updates="None" val="4" valType="code"/>
+        <Param name="stopType" updates="None" val="time (s)" valType="str"/>
+        <Param name="stopVal" updates="constant" val="6" valType="code"/>
+        <Param name="syncScreenRefresh" updates="None" val="True" valType="bool"/>
+        <Param name="units" updates="None" val="from exp settings" valType="str"/>
+        <Param name="vertices" updates="constant" val=" [(-0.4,0.05),(-0.4,-0.05),(-.2,-0.05),(-.2,-0.1),(0,0),(-.2,0.1),(-.2,0.05)]" valType="list"/>
+      </PolygonComponent>
+      <PolygonComponent name="cue_left">
+        <Param name="colorSpace" updates="constant" val="rgb" valType="str"/>
+        <Param name="contrast" updates="constant" val="1" valType="num"/>
+        <Param name="disabled" updates="None" val="False" valType="bool"/>
+        <Param name="durationEstim" updates="None" val="" valType="code"/>
+        <Param name="fillColor" updates="constant" val="white" valType="color"/>
+        <Param name="interpolate" updates="constant" val="linear" valType="str"/>
+        <Param name="lineColor" updates="constant" val="white" valType="color"/>
+        <Param name="lineWidth" updates="constant" val="1" valType="num"/>
+        <Param name="nVertices" updates="constant" val="4" valType="int"/>
+        <Param name="name" updates="None" val="cue_left" valType="code"/>
         <Param name="opacity" updates="constant" val="" valType="num"/>
         <Param name="ori" updates="constant" val="0" valType="num"/>
         <Param name="pos" updates="constant" val="(0, 0)" valType="list"/>
@@ -130,10 +172,10 @@
         <Param name="stopVal" updates="constant" val="6" valType="code"/>
         <Param name="syncScreenRefresh" updates="None" val="True" valType="bool"/>
         <Param name="units" updates="None" val="from exp settings" valType="str"/>
-        <Param name="vertices" updates="constant" val=" [(-0.4,0.05),(-0.4,-0.05),(-.2,-0.05),(-.2,-0.1),(0,0),(-.2,0.1),(-.2,0.05)]" valType="list"/>
+        <Param name="vertices" updates="constant" val="[(0.4,0.05),(0.4,-0.05),(.2,-0.05),(.2,-0.1),(0,0),(.2,0.1),(.2,0.05)]" valType="list"/>
       </PolygonComponent>
       <ParallelOutComponent name="pattern1">
-        <Param name="address" updates="None" val="0x0378" valType="str"/>
+        <Param name="address" updates="None" val="0xDFF8 " valType="str"/>
         <Param name="disabled" updates="None" val="False" valType="bool"/>
         <Param name="durationEstim" updates="None" val="" valType="code"/>
         <Param name="name" updates="None" val="pattern1" valType="code"/>
@@ -167,7 +209,7 @@
         <Param name="syncScreenRefresh" updates="constant" val="True" valType="bool"/>
       </JoyButtonsComponent>
       <ParallelOutComponent name="pattern2">
-        <Param name="address" updates="None" val="0x0378" valType="str"/>
+        <Param name="address" updates="None" val="0xDFF8 " valType="str"/>
         <Param name="disabled" updates="None" val="False" valType="bool"/>
         <Param name="durationEstim" updates="None" val="" valType="code"/>
         <Param name="name" updates="None" val="pattern2" valType="code"/>
@@ -201,7 +243,7 @@
         <Param name="syncScreenRefresh" updates="constant" val="True" valType="bool"/>
       </JoyButtonsComponent>
       <ParallelOutComponent name="pattern3">
-        <Param name="address" updates="None" val="0x0378" valType="str"/>
+        <Param name="address" updates="None" val="0xDFF8 " valType="str"/>
         <Param name="disabled" updates="None" val="False" valType="bool"/>
         <Param name="durationEstim" updates="None" val="" valType="code"/>
         <Param name="name" updates="None" val="pattern3" valType="code"/>
@@ -235,7 +277,7 @@
         <Param name="syncScreenRefresh" updates="constant" val="True" valType="bool"/>
       </JoyButtonsComponent>
       <ParallelOutComponent name="pattern4">
-        <Param name="address" updates="None" val="0x0378" valType="str"/>
+        <Param name="address" updates="None" val="0xDFF8 " valType="str"/>
         <Param name="disabled" updates="None" val="False" valType="bool"/>
         <Param name="durationEstim" updates="None" val="" valType="code"/>
         <Param name="name" updates="None" val="pattern4" valType="code"/>
@@ -269,7 +311,7 @@
         <Param name="syncScreenRefresh" updates="constant" val="True" valType="bool"/>
       </JoyButtonsComponent>
       <ParallelOutComponent name="pattern5">
-        <Param name="address" updates="None" val="0x0378" valType="str"/>
+        <Param name="address" updates="None" val="0xDFF8 " valType="str"/>
         <Param name="disabled" updates="None" val="False" valType="bool"/>
         <Param name="durationEstim" updates="None" val="" valType="code"/>
         <Param name="name" updates="None" val="pattern5" valType="code"/>

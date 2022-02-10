@@ -11,7 +11,6 @@ for it = 1:size(seq(:),1)
     else
         pulse = cat(2,pulse,[0 clk]);
     end
-    disp(pulse)
 end
 
 switch hand

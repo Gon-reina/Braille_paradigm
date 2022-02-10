@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2021.2.3),
-    on February 09, 2022, at 23:00
+    on February 10, 2022, at 13:25
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -51,7 +51,7 @@ filename = _thisDir + os.sep + u'data/%s_%s_%s' % (expInfo['participant'], expNa
 # An ExperimentHandler isn't essential but helps with data saving
 thisExp = data.ExperimentHandler(name=expName, version='',
     extraInfo=expInfo, runtimeInfo=None,
-    originPath='C:\\Users\\ezygr\\OneDrive - The University of Nottingham\\Desktop\\Code\\Beta_oscillations\\psychopytest\\Braille_Stim_Final.py',
+    originPath='C:\\Users\\physicsuser\\Documents\\MATLAB\\gonzalo\\Braille_paradigm\\psychopytest\\Braille_Stim_Final.py',
     savePickle=True, saveWideText=True,
     dataFileName=filename)
 # save a log file for detail verbose info
@@ -72,7 +72,7 @@ from psychopy.hardware import joystick as joysticklib  # joystick/gamepad accsss
 from psychopy.experiment.components.joyButtons import virtualJoyButtons as virtualjoybuttonslib
 from psychopy.hardware import joystick as joysticklib  # joystick/gamepad accsss
 from psychopy.experiment.components.joyButtons import virtualJoyButtons as virtualjoybuttonslib
-
+from utils.braille_functions import toBraille, sendStim
 # Setup the Window
 win = visual.Window(
     size=(1024, 768), fullscr=True, screen=0, 
@@ -102,19 +102,26 @@ new_trial_text = visual.TextStim(win=win, name='new_trial_text',
     color='white', colorSpace='rgb', opacity=None, 
     languageStyle='LTR',
     depth=0.0);
+true_pattern = parallel.ParallelPort(address='0xDFF8 ')
 cross = visual.ShapeStim(
     win=win, name='cross', vertices='cross',
     size=(0.25, 0.25),
     ori=0.0, pos=(0, 0),
     lineWidth=1.0,     colorSpace='rgb',  lineColor='white', fillColor='white',
     opacity=None, depth=-1.0, interpolate=True)
-cue = visual.ShapeStim(
-    win=win, name='cue', vertices=[(-0.4,0.05),(-0.4,-0.05),(-.2,-0.05),(-.2,-0.1),(0,0),(-.2,0.1),(-.2,0.05)],
-    size=(0.5, 0.5),
+cue_right = visual.ShapeStim(
+    win=win, name='cue_right', vertices=[(-0.4,0.05),(-0.4,-0.05),(-.2,-0.05),(-.2,-0.1),(0,0),(-.2,0.1),(-.2,0.05)],
+    size=(0.25, 0.25),
     ori=0.0, pos=(0, 0),
     lineWidth=1.0,     colorSpace='rgb',  lineColor='white', fillColor='white',
     opacity=None, depth=-2.0, interpolate=True)
-pattern1 = parallel.ParallelPort(address='0x0378')
+cue_left = visual.ShapeStim(
+    win=win, name='cue_left', vertices=[(0.4,0.05),(0.4,-0.05),(.2,-0.05),(.2,-0.1),(0,0),(.2,0.1),(.2,0.05)],
+    size=(0.25, 0.25),
+    ori=0.0, pos=(0, 0),
+    lineWidth=1.0,     colorSpace='rgb',  lineColor='white', fillColor='white',
+    opacity=None, depth=-3.0, interpolate=True)
+pattern1 = parallel.ParallelPort(address='0xDFF8 ')
 button_resp1 = type('', (), {})() # Create an object to use as a name space
 button_resp1.device = None
 button_resp1.device_number = 0
@@ -144,7 +151,7 @@ button_resp1.status = None
 button_resp1.clock = core.Clock()
 button_resp1.numButtons = button_resp1.device.getNumButtons()
 
-pattern2 = parallel.ParallelPort(address='0x0378')
+pattern2 = parallel.ParallelPort(address='0xDFF8 ')
 button_resp2 = type('', (), {})() # Create an object to use as a name space
 button_resp2.device = None
 button_resp2.device_number = 0
@@ -174,7 +181,7 @@ button_resp2.status = None
 button_resp2.clock = core.Clock()
 button_resp2.numButtons = button_resp2.device.getNumButtons()
 
-pattern3 = parallel.ParallelPort(address='0x0378')
+pattern3 = parallel.ParallelPort(address='0xDFF8 ')
 button_resp3 = type('', (), {})() # Create an object to use as a name space
 button_resp3.device = None
 button_resp3.device_number = 0
@@ -204,7 +211,7 @@ button_resp3.status = None
 button_resp3.clock = core.Clock()
 button_resp3.numButtons = button_resp3.device.getNumButtons()
 
-pattern4 = parallel.ParallelPort(address='0x0378')
+pattern4 = parallel.ParallelPort(address='0xDFF8 ')
 button_resp4 = type('', (), {})() # Create an object to use as a name space
 button_resp4.device = None
 button_resp4.device_number = 0
@@ -234,7 +241,7 @@ button_resp4.status = None
 button_resp4.clock = core.Clock()
 button_resp4.numButtons = button_resp4.device.getNumButtons()
 
-pattern5 = parallel.ParallelPort(address='0x0378')
+pattern5 = parallel.ParallelPort(address='0xDFF8 ')
 button_resp5 = type('', (), {})() # Create an object to use as a name space
 button_resp5.device = None
 button_resp5.device_number = 0
@@ -269,7 +276,7 @@ cross2 = visual.ShapeStim(
     size=(0.25, 0.25),
     ori=0.0, pos=(0, 0),
     lineWidth=1.0,     colorSpace='rgb',  lineColor='white', fillColor='white',
-    opacity=None, depth=-13.0, interpolate=True)
+    opacity=None, depth=-14.0, interpolate=True)
 
 # Initialize components for Routine "feedback"
 feedbackClock = core.Clock()
@@ -296,7 +303,7 @@ thisParadigm = Paradigm.trialList[0]  # so we can initialise stimuli with some v
 if thisParadigm != None:
     for paramName in thisParadigm:
         exec('{} = thisParadigm[paramName]'.format(paramName))
-
+# Set up paradigm variables
 AttendHand = [] # list of cues
 pp = np.array(
 [   [1, 1, 0, 0, 1, 1, 0, 0],
@@ -305,12 +312,13 @@ pp = np.array(
     [1, 1, 1, 1, 0, 0, 0, 0],
     [0, 0, 0, 0, 1, 1, 1, 1]
 ]
-    )
+    ) # Possible braille patterns
+patterns = []
+all_down = toBraille(np.zeros([1,8],dtype="int32"),0)
 
 
 for thisParadigm in Paradigm:
     currentLoop = Paradigm
-    print(str(currentLoop.thisRepN))
     # abbreviate parameter names if possible (e.g. rgb = thisParadigm.rgb)
     if thisParadigm != None:
         for paramName in thisParadigm:
@@ -323,17 +331,33 @@ for thisParadigm in Paradigm:
         seed=None, name='first_set')
     thisExp.addLoop(first_set)  # add the loop to the experiment
     thisFirst_set = first_set.trialList[0]  # so we can initialise stimuli with some values
+
+
+    # Choose random cues for the 10 trials 1 is for left, 2 is for right
+    Cues = np.append(np.ones([first_set.nReps,1]), 2*np.ones([first_set.nReps,1]))
+    Cues = np.random.permutation(Cues)
+    AttendHand.append(Cues)
+    # Choose how many target patterns there will be per trial
+    g = np.random.gamma(4, 0.3, first_set.nReps)
+    g = np.round(g)
+    g[g>5] = 5
+
     # abbreviate parameter names if possible (e.g. rgb = thisFirst_set.rgb)
     if thisFirst_set != None:
         for paramName in thisFirst_set:
             exec('{} = thisFirst_set[paramName]'.format(paramName))
     
-    # Choose random cues for the 10 trials 1 is for left, 2 is for right
-    Cues = np.append(np.ones([first_set.nReps,1]), 2*np.ones([first_set.nReps,1]))
-    Cues = np.random.permutation(Cues)
-    AttendHand.append(Cues)
-
     for thisFirst_set in first_set:
+        # Choose the patterns to send
+        r = np.random.randint(0,pp.shape[0])
+        true_patterns = g[first_set.thisN]
+        stimuli = np.array([range(0,pp.shape[0])])
+        stimuli = np.delete(stimuli, np.where(stimuli==r))
+        stimuli = np.random.permutation(stimuli)
+        for i in range(0,int(true_patterns)):
+            stimuli[i] = r
+        patterns.append(stimuli)
+
         currentLoop = first_set
         # abbreviate parameter names if possible (e.g. rgb = thisFirst_set.rgb)
         if thisFirst_set != None:
@@ -360,7 +384,7 @@ for thisParadigm in Paradigm:
         button_resp5.keys = []
         button_resp5.rt = []
         # keep track of which components have finished
-        trialComponents = [new_trial_text, cross, cue, pattern1, button_resp1, pattern2, button_resp2, pattern3, button_resp3, pattern4, button_resp4, pattern5, button_resp5, cross2]
+        trialComponents = [new_trial_text, true_pattern, cross, cue_right, cue_left, pattern1, button_resp1, pattern2, button_resp2, pattern3, button_resp3, pattern4, button_resp4, pattern5, button_resp5, cross2]
         for thisComponent in trialComponents:
             thisComponent.tStart = None
             thisComponent.tStop = None
@@ -373,7 +397,11 @@ for thisParadigm in Paradigm:
         _timeToFirstFrame = win.getFutureFlipTime(clock="now")
         trialClock.reset(-_timeToFirstFrame)  # t0 is time of first possible flip
         frameN = -1
-        
+        # Log which hand
+        if Cues[first_set.thisN] == 2: # Right hand
+            logging.data("Right hand cued")
+        elif Cues[first_set.thisN] == 1:# Left hand
+            logging.data("Left hand cued")
         # -------Run Routine "trial"-------
         while continueRoutine and routineTimer.getTime() > 0:
             # get current time
@@ -393,12 +421,33 @@ for thisParadigm in Paradigm:
                 new_trial_text.setAutoDraw(True)
             if new_trial_text.status == STARTED:
                 # is it time to stop? (based on local clock)
-                if tThisFlip > 0.5-frameTolerance:
+                if tThisFlip > 0.7-frameTolerance:
                     # keep track of stop time/frame for later
                     new_trial_text.tStop = t  # not accounting for scr refresh
                     new_trial_text.frameNStop = frameN  # exact frame index
                     win.timeOnFlip(new_trial_text, 'tStopRefresh')  # time at next scr refresh
                     new_trial_text.setAutoDraw(False)
+            # *true_pattern* updates
+            if true_pattern.status == NOT_STARTED and t >= 1-frameTolerance:
+                # keep track of start time/frame for later
+                true_pattern.frameNStart = frameN  # exact frame index
+                true_pattern.tStart = t  # local t and not account for scr refresh
+                true_pattern.tStartRefresh = tThisFlipGlobal  # on global time
+                win.timeOnFlip(true_pattern, 'tStartRefresh')  # time at next scr refresh
+                true_pattern.status = STARTED
+                win.callOnFlip(true_pattern.setData, int(1))
+            if true_pattern.status == STARTED:
+                # Send the true pattern
+                seq = toBraille(pp[r,:],0)
+                sendStim(seq,pattern1)
+                # is it time to stop? (based on global clock, using actual start)
+                if tThisFlipGlobal > true_pattern.tStartRefresh + 0-frameTolerance:
+                    # keep track of stop time/frame for later
+                    true_pattern.tStop = t  # not accounting for scr refresh
+                    true_pattern.frameNStop = frameN  # exact frame index
+                    win.timeOnFlip(true_pattern, 'tStopRefresh')  # time at next scr refresh
+                    true_pattern.status = FINISHED
+                    win.callOnFlip(true_pattern.setData, int(0))
             
             # *cross* updates
             if cross.status == NOT_STARTED and tThisFlip >= 1-frameTolerance:
@@ -416,23 +465,42 @@ for thisParadigm in Paradigm:
                     cross.frameNStop = frameN  # exact frame index
                     win.timeOnFlip(cross, 'tStopRefresh')  # time at next scr refresh
                     cross.setAutoDraw(False)
+                    sendStim(all_down,pattern1) # Put the pins down after 2 seconds
             
-            # *cue* updates
-            if cue.status == NOT_STARTED and tThisFlip >= 4-frameTolerance:
-                # keep track of start time/frame for later
-                cue.frameNStart = frameN  # exact frame index
-                cue.tStart = t  # local t and not account for scr refresh
-                cue.tStartRefresh = tThisFlipGlobal  # on global time
-                win.timeOnFlip(cue, 'tStartRefresh')  # time at next scr refresh
-                cue.setAutoDraw(True)
-            if cue.status == STARTED:
-                # is it time to stop? (based on local clock)
-                if tThisFlip > 6-frameTolerance:
-                    # keep track of stop time/frame for later
-                    cue.tStop = t  # not accounting for scr refresh
-                    cue.frameNStop = frameN  # exact frame index
-                    win.timeOnFlip(cue, 'tStopRefresh')  # time at next scr refresh
-                    cue.setAutoDraw(False)
+            if Cues[first_set.thisN] == 2: #Right hand hand
+                # *cue_right* updates
+                if cue_right.status == NOT_STARTED and tThisFlip >= 4-frameTolerance:
+                    # keep track of start time/frame for later
+                    cue_right.frameNStart = frameN  # exact frame index
+                    cue_right.tStart = t  # local t and not account for scr refresh
+                    cue_right.tStartRefresh = tThisFlipGlobal  # on global time
+                    win.timeOnFlip(cue_right, 'tStartRefresh')  # time at next scr refresh
+                    cue_right.setAutoDraw(True)
+                if cue_right.status == STARTED:
+                    # is it time to stop? (based on local clock)
+                    if tThisFlip > 6-frameTolerance:
+                        # keep track of stop time/frame for later
+                        cue_right.tStop = t  # not accounting for scr refresh
+                        cue_right.frameNStop = frameN  # exact frame index
+                        win.timeOnFlip(cue_right, 'tStopRefresh')  # time at next scr refresh
+                        cue_right.setAutoDraw(False)
+            elif Cues[first_set.thisN] ==1: #Left hand
+                # *cue_left* updates
+                if cue_left.status == NOT_STARTED and tThisFlip >= 4-frameTolerance:
+                    # keep track of start time/frame for later
+                    cue_left.frameNStart = frameN  # exact frame index
+                    cue_left.tStart = t  # local t and not account for scr refresh
+                    cue_left.tStartRefresh = tThisFlipGlobal  # on global time
+                    win.timeOnFlip(cue_left, 'tStartRefresh')  # time at next scr refresh
+                    cue_left.setAutoDraw(True)
+                if cue_left.status == STARTED:
+                    # is it time to stop? (based on local clock)
+                    if tThisFlip > 6-frameTolerance:
+                        # keep track of stop time/frame for later
+                        cue_left.tStop = t  # not accounting for scr refresh
+                        cue_left.frameNStop = frameN  # exact frame index
+                        win.timeOnFlip(cue_left, 'tStopRefresh')  # time at next scr refresh
+                        cue_left.setAutoDraw(False)
             # *pattern1* updates
             if pattern1.status == NOT_STARTED and t >= 7-frameTolerance:
                 # keep track of start time/frame for later
@@ -441,16 +509,21 @@ for thisParadigm in Paradigm:
                 pattern1.tStartRefresh = tThisFlipGlobal  # on global time
                 win.timeOnFlip(pattern1, 'tStartRefresh')  # time at next scr refresh
                 pattern1.status = STARTED
-                win.callOnFlip(pattern1.setData, int(1))
+                # win.callOnFlip(pattern1.setData, int(1))
             if pattern1.status == STARTED:
+                leftright = np.random.randint(1,3)
+                seq = toBraille(pp[stimuli[first_set.thisN],:],leftright)
+                sendStim(seq,pattern1)
+                core.wait(0.1)
+                sendStim(all_down,pattern1)
                 # is it time to stop? (based on global clock, using actual start)
-                if tThisFlipGlobal > pattern1.tStartRefresh + 0.1-frameTolerance:
+                if tThisFlipGlobal > pattern1.tStartRefresh + 0-frameTolerance:
                     # keep track of stop time/frame for later
                     pattern1.tStop = t  # not accounting for scr refresh
                     pattern1.frameNStop = frameN  # exact frame index
                     win.timeOnFlip(pattern1, 'tStopRefresh')  # time at next scr refresh
                     pattern1.status = FINISHED
-                    win.callOnFlip(pattern1.setData, int(0))
+                    # win.callOnFlip(pattern1.setData, int(0))
             
             # *button_resp1* updates
             if button_resp1.status == NOT_STARTED and tThisFlip >= 7.1-frameTolerance:
@@ -498,8 +571,13 @@ for thisParadigm in Paradigm:
                 pattern2.status = STARTED
                 win.callOnFlip(pattern2.setData, int(1))
             if pattern2.status == STARTED:
+                leftright = np.random.randint(1,3)
+                seq = toBraille(pp[stimuli[first_set.thisN],:],leftright)
+                sendStim(seq,pattern2)
+                core.wait(0.1)
+                sendStim(all_down,pattern1)
                 # is it time to stop? (based on global clock, using actual start)
-                if tThisFlipGlobal > pattern2.tStartRefresh + 0.1-frameTolerance:
+                if tThisFlipGlobal > pattern2.tStartRefresh + 0-frameTolerance:
                     # keep track of stop time/frame for later
                     pattern2.tStop = t  # not accounting for scr refresh
                     pattern2.frameNStop = frameN  # exact frame index
@@ -553,6 +631,11 @@ for thisParadigm in Paradigm:
                 pattern3.status = STARTED
                 win.callOnFlip(pattern3.setData, int(1))
             if pattern3.status == STARTED:
+                leftright = np.random.randint(1,3)
+                seq = toBraille(pp[stimuli[first_set.thisN],:],leftright)
+                sendStim(seq,pattern3)
+                core.wait(0.1)
+                sendStim(all_down,pattern1)
                 # is it time to stop? (based on global clock, using actual start)
                 if tThisFlipGlobal > pattern3.tStartRefresh + 0.1-frameTolerance:
                     # keep track of stop time/frame for later
@@ -608,6 +691,11 @@ for thisParadigm in Paradigm:
                 pattern4.status = STARTED
                 win.callOnFlip(pattern4.setData, int(1))
             if pattern4.status == STARTED:
+                leftright = np.random.randint(1,3)
+                seq = toBraille(pp[stimuli[first_set.thisN],:],leftright)
+                sendStim(seq,pattern4)
+                core.wait(0.1)
+                sendStim(all_down,pattern1)
                 # is it time to stop? (based on global clock, using actual start)
                 if tThisFlipGlobal > pattern4.tStartRefresh + 0.1-frameTolerance:
                     # keep track of stop time/frame for later
@@ -663,6 +751,11 @@ for thisParadigm in Paradigm:
                 pattern5.status = STARTED
                 win.callOnFlip(pattern5.setData, int(1))
             if pattern5.status == STARTED:
+                leftright = np.random.randint(1,3)
+                seq = toBraille(pp[stimuli[first_set.thisN],:],leftright)
+                sendStim(seq,pattern5)
+                core.wait(0.1)
+                sendStim(all_down,pattern1)
                 # is it time to stop? (based on global clock, using actual start)
                 if tThisFlipGlobal > pattern5.tStartRefresh + 0.1-frameTolerance:
                     # keep track of stop time/frame for later
@@ -749,10 +842,16 @@ for thisParadigm in Paradigm:
                 thisComponent.setAutoDraw(False)
         first_set.addData('new_trial_text.started', new_trial_text.tStartRefresh)
         first_set.addData('new_trial_text.stopped', new_trial_text.tStopRefresh)
+        if true_pattern.status == STARTED:
+            win.callOnFlip(true_pattern.setData, int(0))
+        first_set.addData('true_pattern.started', true_pattern.tStart)
+        first_set.addData('true_pattern.stopped', true_pattern.tStop)
         first_set.addData('cross.started', cross.tStartRefresh)
         first_set.addData('cross.stopped', cross.tStopRefresh)
-        first_set.addData('cue.started', cue.tStartRefresh)
-        first_set.addData('cue.stopped', cue.tStopRefresh)
+        first_set.addData('cue_right.started', cue_right.tStartRefresh)
+        first_set.addData('cue_right.stopped', cue_right.tStopRefresh)
+        first_set.addData('cue_left.started', cue_left.tStartRefresh)
+        first_set.addData('cue_left.stopped', cue_left.tStopRefresh)
         if pattern1.status == STARTED:
             win.callOnFlip(pattern1.setData, int(0))
         first_set.addData('pattern1.started', pattern1.tStart)
@@ -879,9 +978,10 @@ for thisParadigm in Paradigm:
     Paradigm.addData('feedback_string.started', feedback_string.tStartRefresh)
     Paradigm.addData('feedback_string.stopped', feedback_string.tStopRefresh)
     thisExp.nextEntry()
+    
+# completed 8.0 repeats of 'Paradigm'
 
 
-AttendHand = np.concatenate(AttendHand, axis=0)
 # Flip one final time so any remaining win.callOnFlip() 
 # and win.timeOnFlip() tasks get executed before quitting
 win.flip()

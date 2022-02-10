@@ -51,6 +51,7 @@ Attendlr = [ones(1,Ntrials/2), ones(1,Ntrials/2)*2];
 Attendlr = Attendlr(randperm(Ntrials));
 
 % Defines how many targets there are in each trial
+Ntrials = 80;
 g = gamrnd(4,.3,1,Ntrials);
 g = round(g);
 g(g>5) = 5;
