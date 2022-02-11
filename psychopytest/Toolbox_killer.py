@@ -306,6 +306,7 @@ trigport = parallel.ParallelPort(address='0xDFF8 ')
 totalpresses = 0
 true_patterns_sent = 0
 correctpresses = 0
+true_pattern_chosen = []
 left_keys = ['b','y']
 right_keys = ['r','g']
 for thisParadigm in Paradigm:
@@ -341,6 +342,7 @@ for thisParadigm in Paradigm:
     for thisFirst_set in first_set:
         # Choose the patterns to send
         r = np.random.randint(0,pp.shape[0]) # Choose the true pattern
+        true_pattern_chosen.append(r)
         true_patterns = g[first_set.thisN]
         stimuli = np.array([range(0,pp.shape[0])])
         np.place(stimuli, stimuli==r, np.random.randint(0,pp.shape[0],pp.shape[0])) 
@@ -1141,6 +1143,13 @@ win.flip()
 thisExp.saveAsWideText(filename+'.csv', delim='auto')
 thisExp.saveAsPickle(filename)
 logging.flush()
+# Save paradigm data, b sent, cues
+All_Cues = np.concatenate(AttendHand, axis = 1)
+np.savetxt("All_Cues.csv", All_Cues, delimiter=",")
+true_pattern_chosen = np.concatenate(true_pattern_chosen, axis = 1)
+np.savetxt("true_patterns_chose.csv", true_pattern_chosen, delimiter=",")
+All_patterns_sent = np.concatenate(patterns, axis =1)
+np.savetxt("All_patterns_sent.csv", All_patterns_sent, delimiter=",")
 # make sure everything is closed down
 thisExp.abort()  # or data files will save again on exit
 win.close()
