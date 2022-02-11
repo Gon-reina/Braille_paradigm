@@ -1144,11 +1144,11 @@ thisExp.saveAsWideText(filename+'.csv', delim='auto')
 thisExp.saveAsPickle(filename)
 logging.flush()
 # Save paradigm data, b sent, cues
-All_Cues = np.concatenate(AttendHand, axis = 1)
+All_Cues = np.concatenate(AttendHand, axis = 0)
 np.savetxt("All_Cues.csv", All_Cues, delimiter=",")
-true_pattern_chosen = np.concatenate(true_pattern_chosen, axis = 1)
+true_pattern_chosen = np.concatenate(true_pattern_chosen, axis = 0)
 np.savetxt("true_patterns_chose.csv", true_pattern_chosen, delimiter=",")
-All_patterns_sent = np.concatenate(patterns, axis =1)
+All_patterns_sent = np.concatenate(patterns, axis =0)
 np.savetxt("All_patterns_sent.csv", All_patterns_sent, delimiter=",")
 # make sure everything is closed down
 thisExp.abort()  # or data files will save again on exit
