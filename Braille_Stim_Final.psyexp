@@ -190,13 +190,13 @@
         <Param name="syncScreen" updates="constant" val="True" valType="bool"/>
         <Param name="syncScreenRefresh" updates="None" val="False" valType="bool"/>
       </ParallelOutComponent>
-      <JoyButtonsComponent name="button_resp1">
-        <Param name="allowedKeys" updates="constant" val="'b','y','g','r'" valType="list"/>
-        <Param name="correctAns" updates="constant" val="" valType="list"/>
-        <Param name="deviceNumber" updates="constant" val="0" valType="int"/>
+      <KeyboardComponent name="button_resp1">
+        <Param name="allowedKeys" updates="constant" val="'b','g','r','y'" valType="list"/>
+        <Param name="correctAns" updates="constant" val="" valType="str"/>
         <Param name="disabled" updates="None" val="False" valType="bool"/>
+        <Param name="discard previous" updates="constant" val="True" valType="bool"/>
         <Param name="durationEstim" updates="None" val="" valType="code"/>
-        <Param name="forceEndRoutine" updates="constant" val="True" valType="bool"/>
+        <Param name="forceEndRoutine" updates="constant" val="False" valType="bool"/>
         <Param name="name" updates="None" val="button_resp1" valType="code"/>
         <Param name="saveStartStop" updates="None" val="True" valType="bool"/>
         <Param name="startEstim" updates="None" val="" valType="code"/>
@@ -207,7 +207,7 @@
         <Param name="store" updates="constant" val="first key" valType="str"/>
         <Param name="storeCorrect" updates="constant" val="False" valType="bool"/>
         <Param name="syncScreenRefresh" updates="constant" val="True" valType="bool"/>
-      </JoyButtonsComponent>
+      </KeyboardComponent>
       <ParallelOutComponent name="pattern2">
         <Param name="address" updates="None" val="0xDFF8 " valType="str"/>
         <Param name="disabled" updates="None" val="False" valType="bool"/>
@@ -224,13 +224,13 @@
         <Param name="syncScreen" updates="constant" val="True" valType="bool"/>
         <Param name="syncScreenRefresh" updates="None" val="False" valType="bool"/>
       </ParallelOutComponent>
-      <JoyButtonsComponent name="button_resp2">
-        <Param name="allowedKeys" updates="constant" val="'b','y','g','r'" valType="list"/>
-        <Param name="correctAns" updates="constant" val="" valType="list"/>
-        <Param name="deviceNumber" updates="constant" val="0" valType="int"/>
+      <KeyboardComponent name="button_resp2">
+        <Param name="allowedKeys" updates="constant" val="'b','g','r','y'" valType="list"/>
+        <Param name="correctAns" updates="constant" val="" valType="str"/>
         <Param name="disabled" updates="None" val="False" valType="bool"/>
+        <Param name="discard previous" updates="constant" val="True" valType="bool"/>
         <Param name="durationEstim" updates="None" val="" valType="code"/>
-        <Param name="forceEndRoutine" updates="constant" val="True" valType="bool"/>
+        <Param name="forceEndRoutine" updates="constant" val="False" valType="bool"/>
         <Param name="name" updates="None" val="button_resp2" valType="code"/>
         <Param name="saveStartStop" updates="None" val="True" valType="bool"/>
         <Param name="startEstim" updates="None" val="" valType="code"/>
@@ -241,7 +241,7 @@
         <Param name="store" updates="constant" val="first key" valType="str"/>
         <Param name="storeCorrect" updates="constant" val="False" valType="bool"/>
         <Param name="syncScreenRefresh" updates="constant" val="True" valType="bool"/>
-      </JoyButtonsComponent>
+      </KeyboardComponent>
       <ParallelOutComponent name="pattern3">
         <Param name="address" updates="None" val="0xDFF8 " valType="str"/>
         <Param name="disabled" updates="None" val="False" valType="bool"/>
@@ -258,13 +258,13 @@
         <Param name="syncScreen" updates="constant" val="True" valType="bool"/>
         <Param name="syncScreenRefresh" updates="None" val="False" valType="bool"/>
       </ParallelOutComponent>
-      <JoyButtonsComponent name="button_resp3">
-        <Param name="allowedKeys" updates="constant" val="'b','y','g','r'" valType="list"/>
-        <Param name="correctAns" updates="constant" val="" valType="list"/>
-        <Param name="deviceNumber" updates="constant" val="0" valType="int"/>
+      <KeyboardComponent name="button_resp3">
+        <Param name="allowedKeys" updates="constant" val="'b','g','r','y'" valType="list"/>
+        <Param name="correctAns" updates="constant" val="" valType="str"/>
         <Param name="disabled" updates="None" val="False" valType="bool"/>
+        <Param name="discard previous" updates="constant" val="True" valType="bool"/>
         <Param name="durationEstim" updates="None" val="" valType="code"/>
-        <Param name="forceEndRoutine" updates="constant" val="True" valType="bool"/>
+        <Param name="forceEndRoutine" updates="constant" val="False" valType="bool"/>
         <Param name="name" updates="None" val="button_resp3" valType="code"/>
         <Param name="saveStartStop" updates="None" val="True" valType="bool"/>
         <Param name="startEstim" updates="None" val="" valType="code"/>
@@ -275,7 +275,7 @@
         <Param name="store" updates="constant" val="first key" valType="str"/>
         <Param name="storeCorrect" updates="constant" val="False" valType="bool"/>
         <Param name="syncScreenRefresh" updates="constant" val="True" valType="bool"/>
-      </JoyButtonsComponent>
+      </KeyboardComponent>
       <ParallelOutComponent name="pattern4">
         <Param name="address" updates="None" val="0xDFF8 " valType="str"/>
         <Param name="disabled" updates="None" val="False" valType="bool"/>
@@ -292,13 +292,13 @@
         <Param name="syncScreen" updates="constant" val="True" valType="bool"/>
         <Param name="syncScreenRefresh" updates="None" val="False" valType="bool"/>
       </ParallelOutComponent>
-      <JoyButtonsComponent name="button_resp4">
-        <Param name="allowedKeys" updates="constant" val="'b','y','g','r'" valType="list"/>
-        <Param name="correctAns" updates="constant" val="" valType="list"/>
-        <Param name="deviceNumber" updates="constant" val="0" valType="int"/>
+      <KeyboardComponent name="button_resp4">
+        <Param name="allowedKeys" updates="constant" val="'b','g','r','y'" valType="list"/>
+        <Param name="correctAns" updates="constant" val="" valType="str"/>
         <Param name="disabled" updates="None" val="False" valType="bool"/>
+        <Param name="discard previous" updates="constant" val="True" valType="bool"/>
         <Param name="durationEstim" updates="None" val="" valType="code"/>
-        <Param name="forceEndRoutine" updates="constant" val="True" valType="bool"/>
+        <Param name="forceEndRoutine" updates="constant" val="False" valType="bool"/>
         <Param name="name" updates="None" val="button_resp4" valType="code"/>
         <Param name="saveStartStop" updates="None" val="True" valType="bool"/>
         <Param name="startEstim" updates="None" val="" valType="code"/>
@@ -309,7 +309,7 @@
         <Param name="store" updates="constant" val="first key" valType="str"/>
         <Param name="storeCorrect" updates="constant" val="False" valType="bool"/>
         <Param name="syncScreenRefresh" updates="constant" val="True" valType="bool"/>
-      </JoyButtonsComponent>
+      </KeyboardComponent>
       <ParallelOutComponent name="pattern5">
         <Param name="address" updates="None" val="0xDFF8 " valType="str"/>
         <Param name="disabled" updates="None" val="False" valType="bool"/>
@@ -326,13 +326,13 @@
         <Param name="syncScreen" updates="constant" val="True" valType="bool"/>
         <Param name="syncScreenRefresh" updates="None" val="False" valType="bool"/>
       </ParallelOutComponent>
-      <JoyButtonsComponent name="button_resp5">
-        <Param name="allowedKeys" updates="constant" val="'b','y','g','r'" valType="list"/>
-        <Param name="correctAns" updates="constant" val="" valType="list"/>
-        <Param name="deviceNumber" updates="constant" val="0" valType="int"/>
+      <KeyboardComponent name="button_resp5">
+        <Param name="allowedKeys" updates="constant" val="'b','g','r','y'" valType="list"/>
+        <Param name="correctAns" updates="constant" val="" valType="str"/>
         <Param name="disabled" updates="None" val="False" valType="bool"/>
+        <Param name="discard previous" updates="constant" val="True" valType="bool"/>
         <Param name="durationEstim" updates="None" val="" valType="code"/>
-        <Param name="forceEndRoutine" updates="constant" val="True" valType="bool"/>
+        <Param name="forceEndRoutine" updates="constant" val="False" valType="bool"/>
         <Param name="name" updates="None" val="button_resp5" valType="code"/>
         <Param name="saveStartStop" updates="None" val="True" valType="bool"/>
         <Param name="startEstim" updates="None" val="" valType="code"/>
@@ -343,7 +343,7 @@
         <Param name="store" updates="constant" val="first key" valType="str"/>
         <Param name="storeCorrect" updates="constant" val="False" valType="bool"/>
         <Param name="syncScreenRefresh" updates="constant" val="True" valType="bool"/>
-      </JoyButtonsComponent>
+      </KeyboardComponent>
       <PolygonComponent name="cross2">
         <Param name="colorSpace" updates="constant" val="rgb" valType="str"/>
         <Param name="contrast" updates="constant" val="1" valType="num"/>

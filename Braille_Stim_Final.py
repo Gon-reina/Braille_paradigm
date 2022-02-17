@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2021.2.3),
-    on February 11, 2022, at 11:17
+    on February 17, 2022, at 16:32
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -51,7 +51,7 @@ filename = _thisDir + os.sep + u'data/%s_%s_%s' % (expInfo['participant'], expNa
 # An ExperimentHandler isn't essential but helps with data saving
 thisExp = data.ExperimentHandler(name=expName, version='',
     extraInfo=expInfo, runtimeInfo=None,
-    originPath='C:\\Users\\physicsuser\\Documents\\MATLAB\\gonzalo\\Braille_paradigm\\psychopytest\\Braille_Stim_Final.py',
+    originPath='C:\\Users\\physicsuser\\Documents\\MATLAB\\gonzalo\\Braille_paradigm\\Braille_Stim_Final.py',
     savePickle=True, saveWideText=True,
     dataFileName=filename)
 # save a log file for detail verbose info
@@ -62,14 +62,6 @@ endExpNow = False  # flag for 'escape' or other condition => quit the exp
 frameTolerance = 0.001  # how close to onset before 'same' frame
 
 # Start Code - component code to be run after the window creation
-from psychopy.hardware import joystick as joysticklib  # joystick/gamepad accsss
-from psychopy.experiment.components.joyButtons import virtualJoyButtons as virtualjoybuttonslib
-from psychopy.hardware import joystick as joysticklib  # joystick/gamepad accsss
-from psychopy.experiment.components.joyButtons import virtualJoyButtons as virtualjoybuttonslib
-from psychopy.hardware import joystick as joysticklib  # joystick/gamepad accsss
-from psychopy.experiment.components.joyButtons import virtualJoyButtons as virtualjoybuttonslib
-from psychopy.hardware import joystick as joysticklib  # joystick/gamepad accsss
-from psychopy.experiment.components.joyButtons import virtualJoyButtons as virtualjoybuttonslib
 
 # Setup the Window
 win = visual.Window(
@@ -120,127 +112,15 @@ cue_left = visual.ShapeStim(
     lineWidth=1.0,     colorSpace='rgb',  lineColor='white', fillColor='white',
     opacity=None, depth=-4.0, interpolate=True)
 pattern1 = parallel.ParallelPort(address='0xDFF8 ')
-test_if_button_keyboard = keyboard.Keyboard()
+button_resp1 = keyboard.Keyboard()
 pattern2 = parallel.ParallelPort(address='0xDFF8 ')
-button_resp2 = type('', (), {})() # Create an object to use as a name space
-button_resp2.device = None
-button_resp2.device_number = 0
-
-try:
-    numJoysticks = joysticklib.getNumJoysticks()
-    if numJoysticks > 0:
-        button_resp2.device = joysticklib.Joystick(0)
-        try:
-            joystickCache
-        except NameError:
-            joystickCache={}
-        if not 0 in joystickCache:
-            joystickCache[0] = joysticklib.Joystick(0)
-        button_resp2.device = joystickCache[0]
-    else:
-        button_resp2.device = virtualjoybuttonslib.VirtualJoyButtons(0)
-        logging.warning("joystick_{}: Using keyboard emulation 'ctrl' + 'Alt' + digit.".format(button_resp2.device_number))
-except Exception:
-    pass
-    
-if not button_resp2.device:
-    logging.error('No joystick/gamepad device found.')
-    core.quit()
-
-button_resp2.status = None
-button_resp2.clock = core.Clock()
-button_resp2.numButtons = button_resp2.device.getNumButtons()
-
+button_resp2 = keyboard.Keyboard()
 pattern3 = parallel.ParallelPort(address='0xDFF8 ')
-button_resp3 = type('', (), {})() # Create an object to use as a name space
-button_resp3.device = None
-button_resp3.device_number = 0
-
-try:
-    numJoysticks = joysticklib.getNumJoysticks()
-    if numJoysticks > 0:
-        button_resp3.device = joysticklib.Joystick(0)
-        try:
-            joystickCache
-        except NameError:
-            joystickCache={}
-        if not 0 in joystickCache:
-            joystickCache[0] = joysticklib.Joystick(0)
-        button_resp3.device = joystickCache[0]
-    else:
-        button_resp3.device = virtualjoybuttonslib.VirtualJoyButtons(0)
-        logging.warning("joystick_{}: Using keyboard emulation 'ctrl' + 'Alt' + digit.".format(button_resp3.device_number))
-except Exception:
-    pass
-    
-if not button_resp3.device:
-    logging.error('No joystick/gamepad device found.')
-    core.quit()
-
-button_resp3.status = None
-button_resp3.clock = core.Clock()
-button_resp3.numButtons = button_resp3.device.getNumButtons()
-
+button_resp3 = keyboard.Keyboard()
 pattern4 = parallel.ParallelPort(address='0xDFF8 ')
-button_resp4 = type('', (), {})() # Create an object to use as a name space
-button_resp4.device = None
-button_resp4.device_number = 0
-
-try:
-    numJoysticks = joysticklib.getNumJoysticks()
-    if numJoysticks > 0:
-        button_resp4.device = joysticklib.Joystick(0)
-        try:
-            joystickCache
-        except NameError:
-            joystickCache={}
-        if not 0 in joystickCache:
-            joystickCache[0] = joysticklib.Joystick(0)
-        button_resp4.device = joystickCache[0]
-    else:
-        button_resp4.device = virtualjoybuttonslib.VirtualJoyButtons(0)
-        logging.warning("joystick_{}: Using keyboard emulation 'ctrl' + 'Alt' + digit.".format(button_resp4.device_number))
-except Exception:
-    pass
-    
-if not button_resp4.device:
-    logging.error('No joystick/gamepad device found.')
-    core.quit()
-
-button_resp4.status = None
-button_resp4.clock = core.Clock()
-button_resp4.numButtons = button_resp4.device.getNumButtons()
-
+button_resp4 = keyboard.Keyboard()
 pattern5 = parallel.ParallelPort(address='0xDFF8 ')
-button_resp5 = type('', (), {})() # Create an object to use as a name space
-button_resp5.device = None
-button_resp5.device_number = 0
-
-try:
-    numJoysticks = joysticklib.getNumJoysticks()
-    if numJoysticks > 0:
-        button_resp5.device = joysticklib.Joystick(0)
-        try:
-            joystickCache
-        except NameError:
-            joystickCache={}
-        if not 0 in joystickCache:
-            joystickCache[0] = joysticklib.Joystick(0)
-        button_resp5.device = joystickCache[0]
-    else:
-        button_resp5.device = virtualjoybuttonslib.VirtualJoyButtons(0)
-        logging.warning("joystick_{}: Using keyboard emulation 'ctrl' + 'Alt' + digit.".format(button_resp5.device_number))
-except Exception:
-    pass
-    
-if not button_resp5.device:
-    logging.error('No joystick/gamepad device found.')
-    core.quit()
-
-button_resp5.status = None
-button_resp5.clock = core.Clock()
-button_resp5.numButtons = button_resp5.device.getNumButtons()
-
+button_resp5 = keyboard.Keyboard()
 cross2 = visual.ShapeStim(
     win=win, name='cross2', vertices='cross',
     size=(0.25, 0.25),
@@ -273,6 +153,10 @@ thisParadigm = Paradigm.trialList[0]  # so we can initialise stimuli with some v
 if thisParadigm != None:
     for paramName in thisParadigm:
         exec('{} = thisParadigm[paramName]'.format(paramName))
+# Create port object to send triggers
+trigport = parallel.ParallelPort(address='0xDFF8')
+left_keys = ['b','y']
+right_keys = ['r','g']
 
 for thisParadigm in Paradigm:
     currentLoop = Paradigm
@@ -304,23 +188,23 @@ for thisParadigm in Paradigm:
         continueRoutine = True
         routineTimer.add(16.000000)
         # update component parameters for each repeat
-        test_if_button_keyboard.keys = []
-        test_if_button_keyboard.rt = []
-        _test_if_button_keyboard_allKeys = []
-        button_resp2.oldButtonState = button_resp2.device.getAllButtons()[:]
+        button_resp1.keys = []
+        button_resp1.rt = []
+        _button_resp1_allKeys = []
         button_resp2.keys = []
         button_resp2.rt = []
-        button_resp3.oldButtonState = button_resp3.device.getAllButtons()[:]
+        _button_resp2_allKeys = []
         button_resp3.keys = []
         button_resp3.rt = []
-        button_resp4.oldButtonState = button_resp4.device.getAllButtons()[:]
+        _button_resp3_allKeys = []
         button_resp4.keys = []
         button_resp4.rt = []
-        button_resp5.oldButtonState = button_resp5.device.getAllButtons()[:]
+        _button_resp4_allKeys = []
         button_resp5.keys = []
         button_resp5.rt = []
+        _button_resp5_allKeys = []
         # keep track of which components have finished
-        trialComponents = [new_trial_text, true_pattern, cross, cue_right, cue_left, pattern1, test_if_button_keyboard, pattern2, button_resp2, pattern3, button_resp3, pattern4, button_resp4, pattern5, button_resp5, cross2]
+        trialComponents = [new_trial_text, true_pattern, cross, cue_right, cue_left, pattern1, button_resp1, pattern2, button_resp2, pattern3, button_resp3, pattern4, button_resp4, pattern5, button_resp5, cross2]
         for thisComponent in trialComponents:
             thisComponent.tStart = None
             thisComponent.tStop = None
@@ -436,7 +320,7 @@ for thisParadigm in Paradigm:
                 pattern1.tStartRefresh = tThisFlipGlobal  # on global time
                 win.timeOnFlip(pattern1, 'tStartRefresh')  # time at next scr refresh
                 pattern1.status = STARTED
-                win.callOnFlip(pattern1.setData, int(1))
+                # win.callOnFlip(pattern1.setData, int(1))
             if pattern1.status == STARTED:
                 # is it time to stop? (based on global clock, using actual start)
                 if tThisFlipGlobal > pattern1.tStartRefresh + 0.1-frameTolerance:
@@ -445,35 +329,44 @@ for thisParadigm in Paradigm:
                     pattern1.frameNStop = frameN  # exact frame index
                     win.timeOnFlip(pattern1, 'tStopRefresh')  # time at next scr refresh
                     pattern1.status = FINISHED
-                    win.callOnFlip(pattern1.setData, int(0))
+                    # win.callOnFlip(pattern1.setData, int(0))
             
-            # *test_if_button_keyboard* updates
+            # *button_resp1* updates
             waitOnFlip = False
-            if test_if_button_keyboard.status == NOT_STARTED and tThisFlip >= 7.1-frameTolerance:
+            if button_resp1.status == NOT_STARTED and tThisFlip >= 7.1-frameTolerance:
                 # keep track of start time/frame for later
-                test_if_button_keyboard.frameNStart = frameN  # exact frame index
-                test_if_button_keyboard.tStart = t  # local t and not account for scr refresh
-                test_if_button_keyboard.tStartRefresh = tThisFlipGlobal  # on global time
-                win.timeOnFlip(test_if_button_keyboard, 'tStartRefresh')  # time at next scr refresh
-                test_if_button_keyboard.status = STARTED
+                button_resp1.frameNStart = frameN  # exact frame index
+                button_resp1.tStart = t  # local t and not account for scr refresh
+                button_resp1.tStartRefresh = tThisFlipGlobal  # on global time
+                win.timeOnFlip(button_resp1, 'tStartRefresh')  # time at next scr refresh
+                button_resp1.status = STARTED
                 # keyboard checking is just starting
                 waitOnFlip = True
-                win.callOnFlip(test_if_button_keyboard.clock.reset)  # t=0 on next screen flip
-                win.callOnFlip(test_if_button_keyboard.clearEvents, eventType='keyboard')  # clear events on next screen flip
-            if test_if_button_keyboard.status == STARTED:
+                win.callOnFlip(button_resp1.clock.reset)  # t=0 on next screen flip
+                win.callOnFlip(button_resp1.clearEvents, eventType='keyboard')  # clear events on next screen flip
+            if button_resp1.status == STARTED:
                 # is it time to stop? (based on global clock, using actual start)
-                if tThisFlipGlobal > test_if_button_keyboard.tStartRefresh + 1-frameTolerance:
+                if tThisFlipGlobal > button_resp1.tStartRefresh + 1-frameTolerance:
                     # keep track of stop time/frame for later
-                    test_if_button_keyboard.tStop = t  # not accounting for scr refresh
-                    test_if_button_keyboard.frameNStop = frameN  # exact frame index
-                    win.timeOnFlip(test_if_button_keyboard, 'tStopRefresh')  # time at next scr refresh
-                    test_if_button_keyboard.status = FINISHED
-            if test_if_button_keyboard.status == STARTED and not waitOnFlip:
-                theseKeys = test_if_button_keyboard.getKeys(keyList=['b', 'y', 'g', 'r'], waitRelease=False)
-                _test_if_button_keyboard_allKeys.extend(theseKeys)
-                if len(_test_if_button_keyboard_allKeys):
-                    test_if_button_keyboard.keys = _test_if_button_keyboard_allKeys[0].name  # just the first key pressed
-                    test_if_button_keyboard.rt = _test_if_button_keyboard_allKeys[0].rt
+                    button_resp1.tStop = t  # not accounting for scr refresh
+                    button_resp1.frameNStop = frameN  # exact frame index
+                    win.timeOnFlip(button_resp1, 'tStopRefresh')  # time at next scr refresh
+                    button_resp1.status = FINISHED
+            if button_resp1.status == STARTED and not waitOnFlip:
+                theseKeys = button_resp1.getKeys(keyList=['b', 'g', 'r', 'y'], waitRelease=False)
+                _button_resp1_allKeys.extend(theseKeys)
+                if len(_button_resp1_allKeys):
+                    button_resp1.keys = _button_resp1_allKeys[0].name  # just the first key pressed
+                    print(button_resp1.keys)
+                    if button_resp1.keys == 'b':
+                        trigport.setData(8)
+                        print("left press")
+                    elif button_resp1.keys == 'r':
+                        trigport.setData(16)
+                        print("right press")
+                    core.wait(0.02)
+                    trigport.setData(0)
+                    button_resp1.rt = _button_resp1_allKeys[0].rt
             # *pattern2* updates
             if pattern2.status == NOT_STARTED and t >= 8.1-frameTolerance:
                 # keep track of start time/frame for later
@@ -482,7 +375,7 @@ for thisParadigm in Paradigm:
                 pattern2.tStartRefresh = tThisFlipGlobal  # on global time
                 win.timeOnFlip(pattern2, 'tStartRefresh')  # time at next scr refresh
                 pattern2.status = STARTED
-                win.callOnFlip(pattern2.setData, int(1))
+                # win.callOnFlip(pattern2.setData, int(1))
             if pattern2.status == STARTED:
                 # is it time to stop? (based on global clock, using actual start)
                 if tThisFlipGlobal > pattern2.tStartRefresh + 0.1-frameTolerance:
@@ -491,9 +384,10 @@ for thisParadigm in Paradigm:
                     pattern2.frameNStop = frameN  # exact frame index
                     win.timeOnFlip(pattern2, 'tStopRefresh')  # time at next scr refresh
                     pattern2.status = FINISHED
-                    win.callOnFlip(pattern2.setData, int(0))
+                    # win.callOnFlip(pattern2.setData, int(0))
             
             # *button_resp2* updates
+            waitOnFlip = False
             if button_resp2.status == NOT_STARTED and tThisFlip >= 8.2-frameTolerance:
                 # keep track of start time/frame for later
                 button_resp2.frameNStart = frameN  # exact frame index
@@ -501,8 +395,10 @@ for thisParadigm in Paradigm:
                 button_resp2.tStartRefresh = tThisFlipGlobal  # on global time
                 win.timeOnFlip(button_resp2, 'tStartRefresh')  # time at next scr refresh
                 button_resp2.status = STARTED
-                # joyButtons checking is just starting
+                # keyboard checking is just starting
+                waitOnFlip = True
                 win.callOnFlip(button_resp2.clock.reset)  # t=0 on next screen flip
+                win.callOnFlip(button_resp2.clearEvents, eventType='keyboard')  # clear events on next screen flip
             if button_resp2.status == STARTED:
                 # is it time to stop? (based on global clock, using actual start)
                 if tThisFlipGlobal > button_resp2.tStartRefresh + 1-frameTolerance:
@@ -511,24 +407,20 @@ for thisParadigm in Paradigm:
                     button_resp2.frameNStop = frameN  # exact frame index
                     win.timeOnFlip(button_resp2, 'tStopRefresh')  # time at next scr refresh
                     button_resp2.status = FINISHED
-            if button_resp2.status == STARTED:
-                button_resp2.newButtonState = button_resp2.device.getAllButtons()[:]
-                button_resp2.pressedButtons = []
-                button_resp2.releasedButtons = []
-                button_resp2.newPressedButtons = []
-                if button_resp2.newButtonState != button_resp2.oldButtonState:
-                    button_resp2.pressedButtons = [i for i in range(button_resp2.numButtons) if button_resp2.newButtonState[i] and not button_resp2.oldButtonState[i]]
-                    button_resp2.releasedButtons = [i for i in range(button_resp2.numButtons) if not button_resp2.newButtonState[i] and button_resp2.oldButtonState[i]]
-                    button_resp2.oldButtonState = button_resp2.newButtonState
-                    button_resp2.newPressedButtons = [i for i in ['b', 'y', 'g', 'r'] if i in button_resp2.pressedButtons]
-                    [logging.data("joystick_{}_button: {}".format(button_resp2.device_number,i)) for i in button_resp2.pressedButtons]
-                theseKeys = button_resp2.newPressedButtons
-                if len(theseKeys) > 0:  # at least one key was pressed
-                    if button_resp2.keys == []:  # then this was the first keypress
-                        button_resp2.keys = theseKeys[0]  # just the first key pressed
-                        button_resp2.rt = button_resp2.clock.getTime()
-                        # a response ends the routine
-                        continueRoutine = False
+            if button_resp2.status == STARTED and not waitOnFlip:
+                theseKeys = button_resp2.getKeys(keyList=['b', 'g', 'r', 'y'], waitRelease=False)
+                _button_resp2_allKeys.extend(theseKeys)
+                if len(_button_resp2_allKeys):
+                    if button_resp1.keys == 'b':
+                        trigport.setData(8)
+                        print("left press")
+                    elif button_resp1.keys == 'r':
+                        trigport.setData(16)
+                        print("right press")
+                    core.wait(0.02)
+                    trigport.setData(0)
+                    button_resp2.keys = _button_resp2_allKeys[0].name  # just the first key pressed
+                    button_resp2.rt = _button_resp2_allKeys[0].rt
             # *pattern3* updates
             if pattern3.status == NOT_STARTED and t >= 9.2-frameTolerance:
                 # keep track of start time/frame for later
@@ -537,7 +429,7 @@ for thisParadigm in Paradigm:
                 pattern3.tStartRefresh = tThisFlipGlobal  # on global time
                 win.timeOnFlip(pattern3, 'tStartRefresh')  # time at next scr refresh
                 pattern3.status = STARTED
-                win.callOnFlip(pattern3.setData, int(1))
+                # win.callOnFlip(pattern3.setData, int(1))
             if pattern3.status == STARTED:
                 # is it time to stop? (based on global clock, using actual start)
                 if tThisFlipGlobal > pattern3.tStartRefresh + 0.1-frameTolerance:
@@ -546,9 +438,10 @@ for thisParadigm in Paradigm:
                     pattern3.frameNStop = frameN  # exact frame index
                     win.timeOnFlip(pattern3, 'tStopRefresh')  # time at next scr refresh
                     pattern3.status = FINISHED
-                    win.callOnFlip(pattern3.setData, int(0))
+                    # win.callOnFlip(pattern3.setData, int(0))
             
             # *button_resp3* updates
+            waitOnFlip = False
             if button_resp3.status == NOT_STARTED and tThisFlip >= 9.3-frameTolerance:
                 # keep track of start time/frame for later
                 button_resp3.frameNStart = frameN  # exact frame index
@@ -556,8 +449,10 @@ for thisParadigm in Paradigm:
                 button_resp3.tStartRefresh = tThisFlipGlobal  # on global time
                 win.timeOnFlip(button_resp3, 'tStartRefresh')  # time at next scr refresh
                 button_resp3.status = STARTED
-                # joyButtons checking is just starting
+                # keyboard checking is just starting
+                waitOnFlip = True
                 win.callOnFlip(button_resp3.clock.reset)  # t=0 on next screen flip
+                win.callOnFlip(button_resp3.clearEvents, eventType='keyboard')  # clear events on next screen flip
             if button_resp3.status == STARTED:
                 # is it time to stop? (based on global clock, using actual start)
                 if tThisFlipGlobal > button_resp3.tStartRefresh + 1-frameTolerance:
@@ -566,24 +461,20 @@ for thisParadigm in Paradigm:
                     button_resp3.frameNStop = frameN  # exact frame index
                     win.timeOnFlip(button_resp3, 'tStopRefresh')  # time at next scr refresh
                     button_resp3.status = FINISHED
-            if button_resp3.status == STARTED:
-                button_resp3.newButtonState = button_resp3.device.getAllButtons()[:]
-                button_resp3.pressedButtons = []
-                button_resp3.releasedButtons = []
-                button_resp3.newPressedButtons = []
-                if button_resp3.newButtonState != button_resp3.oldButtonState:
-                    button_resp3.pressedButtons = [i for i in range(button_resp3.numButtons) if button_resp3.newButtonState[i] and not button_resp3.oldButtonState[i]]
-                    button_resp3.releasedButtons = [i for i in range(button_resp3.numButtons) if not button_resp3.newButtonState[i] and button_resp3.oldButtonState[i]]
-                    button_resp3.oldButtonState = button_resp3.newButtonState
-                    button_resp3.newPressedButtons = [i for i in ['b', 'y', 'g', 'r'] if i in button_resp3.pressedButtons]
-                    [logging.data("joystick_{}_button: {}".format(button_resp3.device_number,i)) for i in button_resp3.pressedButtons]
-                theseKeys = button_resp3.newPressedButtons
-                if len(theseKeys) > 0:  # at least one key was pressed
-                    if button_resp3.keys == []:  # then this was the first keypress
-                        button_resp3.keys = theseKeys[0]  # just the first key pressed
-                        button_resp3.rt = button_resp3.clock.getTime()
-                        # a response ends the routine
-                        continueRoutine = False
+            if button_resp3.status == STARTED and not waitOnFlip:
+                theseKeys = button_resp3.getKeys(keyList=['b', 'g', 'r', 'y'], waitRelease=False)
+                _button_resp3_allKeys.extend(theseKeys)
+                if len(_button_resp3_allKeys):
+                    if button_resp1.keys == 'b':
+                        trigport.setData(8)
+                        print("left press")
+                    elif button_resp1.keys == 'r':
+                        trigport.setData(16)
+                        print("right press")
+                    core.wait(0.02)
+                    trigport.setData(0)
+                    button_resp3.keys = _button_resp3_allKeys[0].name  # just the first key pressed
+                    button_resp3.rt = _button_resp3_allKeys[0].rt
             # *pattern4* updates
             if pattern4.status == NOT_STARTED and t >= 10.3-frameTolerance:
                 # keep track of start time/frame for later
@@ -592,7 +483,7 @@ for thisParadigm in Paradigm:
                 pattern4.tStartRefresh = tThisFlipGlobal  # on global time
                 win.timeOnFlip(pattern4, 'tStartRefresh')  # time at next scr refresh
                 pattern4.status = STARTED
-                win.callOnFlip(pattern4.setData, int(1))
+                # win.callOnFlip(pattern4.setData, int(1))
             if pattern4.status == STARTED:
                 # is it time to stop? (based on global clock, using actual start)
                 if tThisFlipGlobal > pattern4.tStartRefresh + 0.1-frameTolerance:
@@ -601,9 +492,10 @@ for thisParadigm in Paradigm:
                     pattern4.frameNStop = frameN  # exact frame index
                     win.timeOnFlip(pattern4, 'tStopRefresh')  # time at next scr refresh
                     pattern4.status = FINISHED
-                    win.callOnFlip(pattern4.setData, int(0))
+                    # win.callOnFlip(pattern4.setData, int(0))
             
             # *button_resp4* updates
+            waitOnFlip = False
             if button_resp4.status == NOT_STARTED and tThisFlip >= 10.4-frameTolerance:
                 # keep track of start time/frame for later
                 button_resp4.frameNStart = frameN  # exact frame index
@@ -611,8 +503,10 @@ for thisParadigm in Paradigm:
                 button_resp4.tStartRefresh = tThisFlipGlobal  # on global time
                 win.timeOnFlip(button_resp4, 'tStartRefresh')  # time at next scr refresh
                 button_resp4.status = STARTED
-                # joyButtons checking is just starting
+                # keyboard checking is just starting
+                waitOnFlip = True
                 win.callOnFlip(button_resp4.clock.reset)  # t=0 on next screen flip
+                win.callOnFlip(button_resp4.clearEvents, eventType='keyboard')  # clear events on next screen flip
             if button_resp4.status == STARTED:
                 # is it time to stop? (based on global clock, using actual start)
                 if tThisFlipGlobal > button_resp4.tStartRefresh + 1-frameTolerance:
@@ -621,24 +515,20 @@ for thisParadigm in Paradigm:
                     button_resp4.frameNStop = frameN  # exact frame index
                     win.timeOnFlip(button_resp4, 'tStopRefresh')  # time at next scr refresh
                     button_resp4.status = FINISHED
-            if button_resp4.status == STARTED:
-                button_resp4.newButtonState = button_resp4.device.getAllButtons()[:]
-                button_resp4.pressedButtons = []
-                button_resp4.releasedButtons = []
-                button_resp4.newPressedButtons = []
-                if button_resp4.newButtonState != button_resp4.oldButtonState:
-                    button_resp4.pressedButtons = [i for i in range(button_resp4.numButtons) if button_resp4.newButtonState[i] and not button_resp4.oldButtonState[i]]
-                    button_resp4.releasedButtons = [i for i in range(button_resp4.numButtons) if not button_resp4.newButtonState[i] and button_resp4.oldButtonState[i]]
-                    button_resp4.oldButtonState = button_resp4.newButtonState
-                    button_resp4.newPressedButtons = [i for i in ['b', 'y', 'g', 'r'] if i in button_resp4.pressedButtons]
-                    [logging.data("joystick_{}_button: {}".format(button_resp4.device_number,i)) for i in button_resp4.pressedButtons]
-                theseKeys = button_resp4.newPressedButtons
-                if len(theseKeys) > 0:  # at least one key was pressed
-                    if button_resp4.keys == []:  # then this was the first keypress
-                        button_resp4.keys = theseKeys[0]  # just the first key pressed
-                        button_resp4.rt = button_resp4.clock.getTime()
-                        # a response ends the routine
-                        continueRoutine = False
+            if button_resp4.status == STARTED and not waitOnFlip:
+                theseKeys = button_resp4.getKeys(keyList=['b', 'g', 'r', 'y'], waitRelease=False)
+                _button_resp4_allKeys.extend(theseKeys)
+                if len(_button_resp4_allKeys):
+                    if button_resp1.keys == 'b':
+                        trigport.setData(8)
+                        print("left press")
+                    elif button_resp1.keys == 'r':
+                        trigport.setData(16)
+                        print("right press")
+                    core.wait(0.02)
+                    trigport.setData(0)
+                    button_resp4.keys = _button_resp4_allKeys[0].name  # just the first key pressed
+                    button_resp4.rt = _button_resp4_allKeys[0].rt
             # *pattern5* updates
             if pattern5.status == NOT_STARTED and t >= 11.4-frameTolerance:
                 # keep track of start time/frame for later
@@ -647,7 +537,7 @@ for thisParadigm in Paradigm:
                 pattern5.tStartRefresh = tThisFlipGlobal  # on global time
                 win.timeOnFlip(pattern5, 'tStartRefresh')  # time at next scr refresh
                 pattern5.status = STARTED
-                win.callOnFlip(pattern5.setData, int(1))
+                # win.callOnFlip(pattern5.setData, int(1))
             if pattern5.status == STARTED:
                 # is it time to stop? (based on global clock, using actual start)
                 if tThisFlipGlobal > pattern5.tStartRefresh + 0.1-frameTolerance:
@@ -656,9 +546,10 @@ for thisParadigm in Paradigm:
                     pattern5.frameNStop = frameN  # exact frame index
                     win.timeOnFlip(pattern5, 'tStopRefresh')  # time at next scr refresh
                     pattern5.status = FINISHED
-                    win.callOnFlip(pattern5.setData, int(0))
+                    # win.callOnFlip(pattern5.setData, int(0))
             
             # *button_resp5* updates
+            waitOnFlip = False
             if button_resp5.status == NOT_STARTED and tThisFlip >= 11.5-frameTolerance:
                 # keep track of start time/frame for later
                 button_resp5.frameNStart = frameN  # exact frame index
@@ -666,34 +557,33 @@ for thisParadigm in Paradigm:
                 button_resp5.tStartRefresh = tThisFlipGlobal  # on global time
                 win.timeOnFlip(button_resp5, 'tStartRefresh')  # time at next scr refresh
                 button_resp5.status = STARTED
-                # joyButtons checking is just starting
+                # keyboard checking is just starting
+                waitOnFlip = True
                 win.callOnFlip(button_resp5.clock.reset)  # t=0 on next screen flip
+                win.callOnFlip(button_resp5.clearEvents, eventType='keyboard')  # clear events on next screen flip
             if button_resp5.status == STARTED:
                 # is it time to stop? (based on global clock, using actual start)
                 if tThisFlipGlobal > button_resp5.tStartRefresh + 1-frameTolerance:
-                    # keep track of stop time/frame for later
+                    # keep track of sexit()
+                    # op time/frame for later
                     button_resp5.tStop = t  # not accounting for scr refresh
                     button_resp5.frameNStop = frameN  # exact frame index
                     win.timeOnFlip(button_resp5, 'tStopRefresh')  # time at next scr refresh
                     button_resp5.status = FINISHED
-            if button_resp5.status == STARTED:
-                button_resp5.newButtonState = button_resp5.device.getAllButtons()[:]
-                button_resp5.pressedButtons = []
-                button_resp5.releasedButtons = []
-                button_resp5.newPressedButtons = []
-                if button_resp5.newButtonState != button_resp5.oldButtonState:
-                    button_resp5.pressedButtons = [i for i in range(button_resp5.numButtons) if button_resp5.newButtonState[i] and not button_resp5.oldButtonState[i]]
-                    button_resp5.releasedButtons = [i for i in range(button_resp5.numButtons) if not button_resp5.newButtonState[i] and button_resp5.oldButtonState[i]]
-                    button_resp5.oldButtonState = button_resp5.newButtonState
-                    button_resp5.newPressedButtons = [i for i in ['b', 'y', 'g', 'r'] if i in button_resp5.pressedButtons]
-                    [logging.data("joystick_{}_button: {}".format(button_resp5.device_number,i)) for i in button_resp5.pressedButtons]
-                theseKeys = button_resp5.newPressedButtons
-                if len(theseKeys) > 0:  # at least one key was pressed
-                    if button_resp5.keys == []:  # then this was the first keypress
-                        button_resp5.keys = theseKeys[0]  # just the first key pressed
-                        button_resp5.rt = button_resp5.clock.getTime()
-                        # a response ends the routine
-                        continueRoutine = False
+            if button_resp5.status == STARTED and not waitOnFlip:
+                theseKeys = button_resp5.getKeys(keyList=['b', 'g', 'r', 'y'], waitRelease=False)
+                _button_resp5_allKeys.extend(theseKeys)
+                if len(_button_resp5_allKeys):
+                    if button_resp1.keys == 'b':
+                        trigport.setData(8)
+                        print("left press")
+                    elif button_resp1.keys == 'r':
+                        trigport.setData(16)
+                        print("right press")
+                    core.wait(0.02)
+                    trigport.setData(0)
+                    button_resp5.keys = _button_resp5_allKeys[0].name  # just the first key pressed
+                    button_resp5.rt = _button_resp5_allKeys[0].rt
             
             # *cross2* updates
             if cross2.status == NOT_STARTED and tThisFlip >= 6-frameTolerance:
@@ -750,53 +640,61 @@ for thisParadigm in Paradigm:
         first_set.addData('pattern1.started', pattern1.tStart)
         first_set.addData('pattern1.stopped', pattern1.tStop)
         # check responses
-        if test_if_button_keyboard.keys in ['', [], None]:  # No response was made
-            test_if_button_keyboard.keys = None
-        first_set.addData('test_if_button_keyboard.keys',test_if_button_keyboard.keys)
-        if test_if_button_keyboard.keys != None:  # we had a response
-            first_set.addData('test_if_button_keyboard.rt', test_if_button_keyboard.rt)
-        first_set.addData('test_if_button_keyboard.started', test_if_button_keyboard.tStartRefresh)
-        first_set.addData('test_if_button_keyboard.stopped', test_if_button_keyboard.tStopRefresh)
+        if button_resp1.keys in ['', [], None]:  # No response was made
+            button_resp1.keys = None
+        first_set.addData('button_resp1.keys',button_resp1.keys)
+        if button_resp1.keys != None:  # we had a response
+            first_set.addData('button_resp1.rt', button_resp1.rt)
+        first_set.addData('button_resp1.started', button_resp1.tStartRefresh)
+        first_set.addData('button_resp1.stopped', button_resp1.tStopRefresh)
         if pattern2.status == STARTED:
             win.callOnFlip(pattern2.setData, int(0))
         first_set.addData('pattern2.started', pattern2.tStart)
         first_set.addData('pattern2.stopped', pattern2.tStop)
         # check responses
         if button_resp2.keys in ['', [], None]:  # No response was made
-            button_resp2.keys=None
+            button_resp2.keys = None
         first_set.addData('button_resp2.keys',button_resp2.keys)
         if button_resp2.keys != None:  # we had a response
             first_set.addData('button_resp2.rt', button_resp2.rt)
+        first_set.addData('button_resp2.started', button_resp2.tStartRefresh)
+        first_set.addData('button_resp2.stopped', button_resp2.tStopRefresh)
         if pattern3.status == STARTED:
             win.callOnFlip(pattern3.setData, int(0))
         first_set.addData('pattern3.started', pattern3.tStart)
         first_set.addData('pattern3.stopped', pattern3.tStop)
         # check responses
         if button_resp3.keys in ['', [], None]:  # No response was made
-            button_resp3.keys=None
+            button_resp3.keys = None
         first_set.addData('button_resp3.keys',button_resp3.keys)
         if button_resp3.keys != None:  # we had a response
             first_set.addData('button_resp3.rt', button_resp3.rt)
+        first_set.addData('button_resp3.started', button_resp3.tStartRefresh)
+        first_set.addData('button_resp3.stopped', button_resp3.tStopRefresh)
         if pattern4.status == STARTED:
             win.callOnFlip(pattern4.setData, int(0))
         first_set.addData('pattern4.started', pattern4.tStart)
         first_set.addData('pattern4.stopped', pattern4.tStop)
         # check responses
         if button_resp4.keys in ['', [], None]:  # No response was made
-            button_resp4.keys=None
+            button_resp4.keys = None
         first_set.addData('button_resp4.keys',button_resp4.keys)
         if button_resp4.keys != None:  # we had a response
             first_set.addData('button_resp4.rt', button_resp4.rt)
+        first_set.addData('button_resp4.started', button_resp4.tStartRefresh)
+        first_set.addData('button_resp4.stopped', button_resp4.tStopRefresh)
         if pattern5.status == STARTED:
             win.callOnFlip(pattern5.setData, int(0))
         first_set.addData('pattern5.started', pattern5.tStart)
         first_set.addData('pattern5.stopped', pattern5.tStop)
         # check responses
         if button_resp5.keys in ['', [], None]:  # No response was made
-            button_resp5.keys=None
+            button_resp5.keys = None
         first_set.addData('button_resp5.keys',button_resp5.keys)
         if button_resp5.keys != None:  # we had a response
             first_set.addData('button_resp5.rt', button_resp5.rt)
+        first_set.addData('button_resp5.started', button_resp5.tStartRefresh)
+        first_set.addData('button_resp5.stopped', button_resp5.tStopRefresh)
         first_set.addData('cross2.started', cross2.tStartRefresh)
         first_set.addData('cross2.stopped', cross2.tStopRefresh)
         thisExp.nextEntry()
