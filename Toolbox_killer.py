@@ -395,7 +395,7 @@ for thisParadigm in Paradigm:
                         logging.data("False left")
                         trigport.setData(FALSEL_trig)
                     elif leftright == 2:
-                        logging.datat("False right")
+                        logging.data("False right")
                         trigport.setData(FALSER_trig)
                 core.wait(0.01)
                 trigport.setData(0)
@@ -456,7 +456,7 @@ for thisParadigm in Paradigm:
                         logging.data("right press")
                         if stimuli[0,0] == r and leftright == 2:
                             correctpresses += 1
-                    core.wait(0.01)
+                    core.wait(0.015)
                     trigport.setData(0)
                     button_resp1.rt = _button_resp1_allKeys[0].rt
                     _button_resp1_allKeys = [] #Reset the list
@@ -534,7 +534,7 @@ for thisParadigm in Paradigm:
                         logging.data("right press")
                         if stimuli[0,1] == r and leftright == 2:
                             correctpresses += 1
-                    core.wait(0.01)
+                    core.wait(0.015)
                     trigport.setData(0)
                     button_resp2.rt = _button_resp2_allKeys[0].rt
                     _button_resp2_allKeys = [] # Reset the list
@@ -613,7 +613,7 @@ for thisParadigm in Paradigm:
                         logging.data("right press")
                         if stimuli[0,2] == r and leftright == 2:
                             correctpresses += 1
-                    core.wait(0.01)
+                    core.wait(0.015)
                     trigport.setData(0)
                     button_resp3.rt = _button_resp3_allKeys[0].rt
                     _button_resp3_allKeys = [] #Reset the list
@@ -691,7 +691,7 @@ for thisParadigm in Paradigm:
                         logging.data("right press")
                         if stimuli[0,3] == r and leftright == 2:
                             correctpresses += 1
-                    core.wait(0.01)
+                    core.wait(0.015)
                     trigport.setData(0)
                     button_resp4.rt = _button_resp4_allKeys[0].rt
                     _button_resp4_allKeys = [] #Reset the list
@@ -770,7 +770,7 @@ for thisParadigm in Paradigm:
                         logging.data("right press")
                         if stimuli[0,4] == r and leftright == 2:
                             correctpresses += 1
-                    core.wait(0.01)
+                    core.wait(0.015)
                     trigport.setData(0)
                     button_resp5.rt = _button_resp5_allKeys[0].rt
                     _button_resp5_allKeys = [] # Reset list
