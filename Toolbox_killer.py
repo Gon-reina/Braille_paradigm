@@ -383,19 +383,19 @@ for thisParadigm in Paradigm:
                         trigport.setData(0)
             # *pattern1* updates
             if pattern1.status == NOT_STARTED and t >= 7-frameTolerance:
-                print("Sending pattern 1")
+                logging.data("Sending pattern 1")
                 leftright = np.random.randint(1,3)
-                print("The trial number is ")
+                logging.data("The trial number is ")
                 if stimuli[0,0] == r and Cues[first_set.thisN] == leftright:
-                    print("True pattern sent!")
+                    logging.data("True pattern sent!")
                     true_patterns_sent += 1
                     trigport.setData(TRUE_trig)
                 else:
                     if leftright == 1:
-                        print("False left")
+                        logging.data("False left")
                         trigport.setData(FALSEL_trig)
                     elif leftright == 2:
-                        print("False right")
+                        logging.datat("False right")
                         trigport.setData(FALSER_trig)
                 core.wait(0.01)
                 trigport.setData(0)
@@ -448,31 +448,32 @@ for thisParadigm in Paradigm:
                     totalpresses += 1
                     if button_resp1.keys in left_keys:
                         trigport.setData(LEFT_PRESS)
-                        print("left press")
+                        logging.data("left press")
                         if stimuli[0,0] == r and leftright == 1:
                             correctpresses += 1
                     elif button_resp1.keys in right_keys:
                         trigport.setData(RIGHT_PRESS)
-                        print("right press")
+                        logging.data("right press")
                         if stimuli[0,0] == r and leftright == 2:
                             correctpresses += 1
                     core.wait(0.01)
                     trigport.setData(0)
                     button_resp1.rt = _button_resp1_allKeys[0].rt
+                    _button_resp1_allKeys = [] #Reset the list
             # *pattern2* updates
             if pattern2.status == NOT_STARTED and t >= 8.1-frameTolerance:
-                print("Sending pattern 2")
+                logging.data("Sending pattern 2")
                 leftright = np.random.randint(1,3)
                 if stimuli[0,1] == r and Cues[first_set.thisN] == leftright:
-                    print("True pattern sent!")
+                    logging.data("True pattern sent!")
                     true_patterns_sent += 1
                     trigport.setData(TRUE_trig)
                 else:
                     if leftright == 1:
-                        print("False left")
+                        logging.data("False left")
                         trigport.setData(FALSEL_trig)
                     elif leftright == 2:
-                        print("False right")
+                        logging.data("False right")
                         trigport.setData(FALSER_trig)
                 core.wait(0.02)
                 trigport.setData(0)
@@ -525,31 +526,33 @@ for thisParadigm in Paradigm:
                     totalpresses += 1
                     if button_resp2.keys in left_keys:
                         trigport.setData(LEFT_PRESS)
-                        print("left press")
+                        logging.data("left press")
                         if stimuli[0,1] == r and leftright == 1:
                             correctpresses += 1
                     elif button_resp2.keys in right_keys:
                         trigport.setData(RIGHT_PRESS)
-                        print("right press")
+                        logging.data("right press")
                         if stimuli[0,1] == r and leftright == 2:
                             correctpresses += 1
                     core.wait(0.01)
                     trigport.setData(0)
                     button_resp2.rt = _button_resp2_allKeys[0].rt
+                    _button_resp2_allKeys = [] # Reset the list
+                    
             # *pattern3* updates
             if pattern3.status == NOT_STARTED and t >= 9.2-frameTolerance:
-                print("Sending pattern 3")
+                logging.data("Sending pattern 3")
                 leftright = np.random.randint(1,3)
                 if stimuli[0,2] == r and Cues[first_set.thisN] == leftright:
-                    print("True pattern sent!")
+                    logging.data("True pattern sent!")
                     true_patterns_sent += 1
                     trigport.setData(TRUE_trig)
                 else:
                     if leftright == 1:
-                        print("False left")
+                        logging.data("False left")
                         trigport.setData(FALSEL_trig)
                     elif leftright == 2:
-                        print("False right")
+                        logging.data("False right")
                         trigport.setData(FALSER_trig)
                 core.wait(0.02)
                 trigport.setData(0)
@@ -602,31 +605,32 @@ for thisParadigm in Paradigm:
                     totalpresses += 1
                     if button_resp3.keys in left_keys:
                         trigport.setData(LEFT_PRESS)
-                        print("left press")
+                        logging.data("left press")
                         if stimuli[0,2] == r and leftright == 1:
                             correctpresses += 1
                     elif button_resp3.keys in right_keys:
                         trigport.setData(RIGHT_PRESS)
-                        print("right press")
+                        logging.data("right press")
                         if stimuli[0,2] == r and leftright == 2:
                             correctpresses += 1
                     core.wait(0.01)
                     trigport.setData(0)
                     button_resp3.rt = _button_resp3_allKeys[0].rt
+                    _button_resp3_allKeys = [] #Reset the list
             # *pattern4* updates
             if pattern4.status == NOT_STARTED and t >= 10.3-frameTolerance:
-                print("Sending pattern 4")
+                logging.data("Sending pattern 4")
                 leftright = np.random.randint(1,3)
                 if stimuli[0,3] == r and Cues[first_set.thisN] == leftright:
-                    print("True pattern sent!")
+                    logging.data("True pattern sent!")
                     true_patterns_sent += 1
                     trigport.setData(TRUE_trig)
                 else:
                     if leftright == 1:
-                        print("False left")
+                        logging.data("False left")
                         trigport.setData(FALSEL_trig)
                     elif leftright == 2:
-                        print("False right")
+                        logging.data("False right")
                         trigport.setData(FALSER_trig)
                 core.wait(0.02)
                 trigport.setData(0)
@@ -679,31 +683,32 @@ for thisParadigm in Paradigm:
                     totalpresses += 1
                     if button_resp4.keys in left_keys:
                         trigport.setData(LEFT_PRESS)
-                        print("left press")
+                        logging.data("left press")
                         if stimuli[0,3] == r and leftright == 1:
                             correctpresses += 1
                     elif button_resp4.keys in right_keys:
                         trigport.setData(RIGHT_PRESS)
-                        print("right press")
+                        logging.data("right press")
                         if stimuli[0,3] == r and leftright == 2:
                             correctpresses += 1
                     core.wait(0.01)
                     trigport.setData(0)
                     button_resp4.rt = _button_resp4_allKeys[0].rt
+                    _button_resp4_allKeys = [] #Reset the list
+                    
             # *pattern5* updates
             if pattern5.status == NOT_STARTED and t >= 11.4-frameTolerance:
-                print("Sending pattern 5 and the trial is {}".format(first_set.thisN))
                 leftright = np.random.randint(1,3)
                 if stimuli[0,4] == r and Cues[first_set.thisN] == leftright:
-                    print("True pattern sent!")
+                    logging.data("True pattern sent!")
                     true_patterns_sent += 1
                     trigport.setData(TRUE_trig)
                 else:
                     if leftright == 1:
-                        print("False left")
+                        logging.data("False left")
                         trigport.setData(FALSEL_trig)
                     elif leftright == 2:
-                        print("False right")
+                        logging.data("False right")
                         trigport.setData(FALSER_trig)
                 core.wait(0.02)
                 trigport.setData(0)
@@ -757,17 +762,20 @@ for thisParadigm in Paradigm:
                     totalpresses += 1
                     if button_resp5.keys in left_keys:
                         trigport.setData(LEFT_PRESS)
-                        print("left press")
+                        logging.data("left press")
                         if stimuli[0,4] == r and leftright == 1:
                             correctpresses += 1
                     elif button_resp5.keys in right_keys:
                         trigport.setData(RIGHT_PRESS)
-                        print("right press")
+                        logging.data("right press")
                         if stimuli[0,4] == r and leftright == 2:
                             correctpresses += 1
                     core.wait(0.01)
                     trigport.setData(0)
                     button_resp5.rt = _button_resp5_allKeys[0].rt
+                    _button_resp5_allKeys = [] # Reset list
+                    
+                    
             
             # *cross2* updates
             if cross2.status == NOT_STARTED and tThisFlip >= 6-frameTolerance:
@@ -974,7 +982,7 @@ logging.flush()
 # Save paradigm data, b sent, cues
 All_Cues = np.concatenate(AttendHand, axis = 0)
 np.savetxt("All_Cues.csv", All_Cues, delimiter=",")
-true_pattern_chosen = np.concatenate(true_pattern_chosen, axis = 0)
+true_pattern_chosen = np.concatenate(true_pattern_chosen)
 np.savetxt("true_patterns_chose.csv", true_pattern_chosen, delimiter=",")
 All_patterns_sent = np.concatenate(patterns, axis =0)
 np.savetxt("All_patterns_sent.csv", All_patterns_sent, delimiter=",")
