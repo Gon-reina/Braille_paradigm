@@ -979,7 +979,7 @@ win.flip()
 thisExp.saveAsWideText(filename+'.csv', delim='auto')
 thisExp.saveAsPickle(filename)
 logging.flush()
-# Save paradigm data, b sent, cues
+# Write paradigm data to json file
 All_Cues = np.concatenate(AttendHand, axis = 0)
 np.savetxt("All_Cues.csv", All_Cues, delimiter=",")
 true_pattern_chosen = np.concatenate(true_pattern_chosen)

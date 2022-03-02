@@ -1,11 +1,11 @@
 # from psychopy import parallel
 # from utils.braille_functions import toBraille
-import numpy as np
-import psychopy.core as core
-import psychopy.visual
-import psychopy.event
-from psychopy import core
-from psychopy import parallel 
+# import numpy as np
+# import psychopy.core as core
+# import psychopy.visual
+# import psychopy.event
+# from psychopy import core
+# from psychopy import parallel 
 
 # trigport = parallel.ParallelPort(address='0xDFF8')
 # FALSEL_trig = 3
@@ -13,25 +13,25 @@ from psychopy import parallel
 # core.wait(0.02)
 # trigport.setData(0)
 
-win = psychopy.visual.Window(
-    size=[400, 400],
-    units="pix",
-    fullscr=False
-)
+# win = psychopy.visual.Window(
+#     size=[400, 400],
+#     units="pix",
+#     fullscr=False
+# )
 
-core.wait(5)
-print("Nowwww")
-left_keys = ['b','y']
-right_keys = ['r','g']
-keys = psychopy.event.waitKeys(2, keyList=['b','g','r','y'])
+# core.wait(5)
+# print("Nowwww")
+# left_keys = ['b','y']
+# right_keys = ['r','g']
+# keys = psychopy.event.waitKeys(2, keyList=['b','g','r','y'])
 
-if keys[0] in left_keys:
-    print("left press")
-elif keys[0] in right_keys:
-    print("right press")
+# if keys[0] in left_keys:
+#     print("left press")
+# elif keys[0] in right_keys:
+#     print("right press")
 
 
-win.close()
+# win.close()
 
 # port = parallel.ParallelPort(address=0xDFF8)
 
@@ -64,3 +64,18 @@ win.close()
 # sendStim(seq,port)
 # core.wait(10)
 # sendStim(all_down,port)
+
+
+import numpy as np
+import codecs, json 
+
+a = np.arange(5).reshape(1,5) # a 2 by 5 array
+b = a.tolist() # nested lists with same data, indices
+q = np.arange(10).reshape(2,5)
+q = q.tolist()
+data = {'fieldname':b,'another':q}
+file_path = "test.json" ## your path variable
+json.dump(data, codecs.open(file_path, 'w', encoding='utf-8'), 
+          separators=(',', ':'), 
+          sort_keys=True, 
+          indent=4) ### this saves the array in .json format
