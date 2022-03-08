@@ -37,8 +37,8 @@ os.chdir(_thisDir)
 
 # Store info about the experiment session
 psychopyVersion = '2021.2.3'
-expName = 'Braille_Stim_Final'  # from the Builder filename that created this script
-expInfo = {'participant': '', 'session': '001'}
+expName = 'BrailleBeta'  # from the Builder filename that created this script
+expInfo = {'participant': '', 'session': '01', 'run': '01'}
 dlg = gui.DlgFromDict(dictionary=expInfo, sortKeys=False, title=expName)
 if dlg.OK == False:
     core.quit()  # user pressed cancel
@@ -47,7 +47,8 @@ expInfo['expName'] = expName
 expInfo['psychopyVersion'] = psychopyVersion
 
 # Data file name stem = absolute path + name; later add .psyexp, .csv, .log, etc
-filename = _thisDir + os.sep + u'data/%s_%s_%s' % (expInfo['participant'], expName, expInfo['date'])
+filename = "sub-{}_ses-{}_task-Braille"
+filename = _thisDir + os.sep + u'metadata/%s_%s_%s' % (expInfo['participant'], expName, expInfo['date'])
 
 # An ExperimentHandler isn't essential but helps with data saving
 thisExp = data.ExperimentHandler(name=expName, version='',
