@@ -60,7 +60,7 @@ all_down = toBraille(np.zeros([1,8],dtype="int32"),0)
     
 
 
-seq = toBraille(pp[4,:],0)
+seq = toBraille(pp[4,:],1)
 sendStim(seq,port)
 core.wait(10)
 sendStim(all_down,port)
