@@ -698,6 +698,7 @@ for thisParadigm in Paradigm:
                     
             # *pattern5* updates
             if pattern5.status == NOT_STARTED and t >= 11.4-frameTolerance:
+                logging.data("Sending pattern 5")
                 leftright = np.random.randint(1,3)
                 if stimuli[0,4] == r and Cues[first_set.thisN] == leftright:
                     logging.data("True pattern sent!")
@@ -981,7 +982,7 @@ thisExp.saveAsPickle(filename)
 logging.flush()
 # Write paradigm data to json file
 All_Cues = np.concatenate(AttendHand, axis = 0)
-np.savetxt("data/All_Cues.csv", All_Cues, delimiter=",")
+np.savetxt("All_Cues.csv", All_Cues, delimiter=",")
 true_pattern_chosen = np.concatenate(true_pattern_chosen)
 np.savetxt("true_patterns_chose.csv", true_pattern_chosen, delimiter=",")
 All_patterns_sent = np.concatenate(patterns, axis =0)
